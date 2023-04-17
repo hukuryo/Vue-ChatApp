@@ -9,7 +9,8 @@ const vuexPersist = new VuexPersistence({
 export default createStore({
   state: {
     count: 0,
-    messages: []
+    messages: [],
+    userId: ''
   },
   getters: {
     getCount: (state) => {
@@ -19,8 +20,10 @@ export default createStore({
       return state.messages
     },
     getMessageById: (state) => (id) => {
-      // IDと一致したメモを取り出す処理
       return state.messages.find(messages => messages.id === id)
+    },
+    loggedIn: (state) => {
+      return Boolean(state.userId.trim())
     }
   },
   mutations: {
@@ -36,6 +39,9 @@ export default createStore({
     },
     delete(state, id){
       state.messages = state.messages.filter(message => message.id !== id)
+    },
+    setUserId(state, userId) {
+      state.userId = userId
     }
   },
   actions: {

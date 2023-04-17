@@ -1,16 +1,32 @@
 <template>
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      <div class="d-flex align-items-center mb-3 ml-4 mb-md-0 me-md-auto text-dark text-decoration-none" style="margin-left: 50px;">
         <span class="fs-4">Vue-Chat</span>
-      </a>
+      </div>
       <ul class="nav nav-pills">
         <li class="nav-item"><router-link class="nav-link active" aria-current="page" to="/">トップページ</router-link></li>
-        <!-- <li class="nav-item"><router-link class="nav-link" to="/">ログアウト</router-link></li> -->
+        <li class="nav-item"><button class="nav-link btn btn-denger" @click="logout()" v-if="$store.getters.loggedIn">ログアウト</button>
+        </li>
       </ul>
     </header>
+    <div v-if="$route.query.message">ログイン認証が必要なページです。</div>
   <router-view/>
 </template>
+<script>
+  export default {
+    methods: {
+      logout () {
+        this.$store.commit('setUserId', '')
+        if (this.$route.meta.requiresAuth) {
+          this.$router.push({
+            path: '/login',
+            query: { redirect: this.$route.fullPath }
+          })
+        }
+      }
+    }
+  }
+</script>
 
 <style>
 #app {
