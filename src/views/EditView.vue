@@ -1,6 +1,7 @@
 <template>
   <div class="edit">
-    <ChatForm />
+    <ChatForm v-if="message" :message="message"/>
+    <p v-else>指定されたメッセージはありません</p>
   </div>
 </template>
 
@@ -11,6 +12,12 @@ export default {
   name: 'EditView',
   components: {
     ChatForm
+  },
+  computed: {
+    message() {
+      const id = parseInt(this.$route.params.id)
+      return this.$store.getters.getMessageById(id)
+    }
   }
 }
 </script>

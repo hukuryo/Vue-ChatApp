@@ -1,12 +1,15 @@
 <template>
   <div class="home">
      <ul v-if="HasMessages">
-      <li v-for="message in messages" :key="message.id"></li>
-      {{ message.content }}
+      <li v-for="message in messages" :key="message.id">
+        <router-link :to= "{name: 'edit', params: {id: message.id}}">
+          {{ message.content }}
+        </router-link>
+      </li>
     </ul>
     <p v-else>メッセージはありません</p>
+    <ChatForm message=""/>
   </div>
-    <ChatForm />
 </template>
 
 <script>
