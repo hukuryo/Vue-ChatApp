@@ -1,20 +1,23 @@
 <template>
   <div class="home">
-     <ul v-if="HasMessages">
-      <li v-for="message in messages" :key="message.id">
+    <h2>メッセージ一覧</h2>
+     <ul class="list-group" v-if="HasMessages">
+      <li class="list-group-item" v-for="message in messages" :key="message.id">
         <router-link :to= "{name: 'edit', params: {id: message.id}}">
           {{ message.content }}
         </router-link>
       </li>
     </ul>
     <p v-else>メッセージはありません</p>
+  </div>
+  <div>
+    <h2>メッセージ作成</h2>
     <ChatForm message=""/>
   </div>
 </template>
 
 <script>
 import ChatForm from '../components/ChatForm.vue'
-
 export default {
   name: 'HomeView',
   components: {
@@ -31,6 +34,9 @@ export default {
 }
 </script>
 <style scoped>
+h2{
+  text-align: left;
+}
    ul{
     margin: 0;
     padding: 0;
@@ -47,6 +53,9 @@ export default {
     text-decoration: none;
     width: 100%;
     display: block;
+  }
+  .list-group{
+    width: 40%;
   }
   .home{
     margin-bottom: 200px;

@@ -1,28 +1,49 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import EditView from '../views/EditView'
+import store from '../store'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
+    component: () => import('../views/HomeView.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/edit/:id',
     name: 'edit',
-    component: EditView
+    component: () => import('../views/EditView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginView.vue')
   }
 ]
 
+// ルーターを初期化する記述
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+// 認証がない場合にログインページの遷移させる記述
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!store.getters.loggedIn) {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath,
+          message: true
+        }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

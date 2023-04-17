@@ -1,8 +1,10 @@
 <template>
     <div class="center">
-    <textarea v-model="content"></textarea>
-        <button @click="save">メッセージを送信</button>
-        <button @click="remove" v-if="message.id">メッセージを削除</button>
+        <div class="input">
+            <textarea class="form-control" aria-label="With textarea" v-model="content"></textarea>           
+        </div>
+        <button type="button" class="btn btn-outline-success" @click="save">メッセージを送信</button>
+        <button type="button" class="btn btn-outline-danger" @click="remove" v-if="message.id">メッセージを削除</button>
     </div>
 </template>
 <script>
@@ -21,11 +23,9 @@ export default {
             let message = {
                 content: this.content
             } 
-
             if(this.message.id){
                 message.id = this.message.id
             }
-
             this.$store.commit('save', message)
             this.$router.push('/')
         },
@@ -40,13 +40,15 @@ export default {
     .center{
         text-align: left;
     }
+    .input{
+        margin-bottom: 10px;
+    }
     textarea {
         width: 30%;
         height: 100px;
     }
-    button{
-        width: 5em;
-        margin: 3px;
+    .btn-outline-danger{
+        margin-left: 10px;
     }
     
 </style>

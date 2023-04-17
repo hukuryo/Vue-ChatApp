@@ -1,5 +1,6 @@
 <template>
   <div class="edit">
+    <h2>メッセージ編集</h2>
     <ChatForm v-if="message" :message="message"/>
     <p v-else>指定されたメッセージはありません</p>
   </div>
@@ -7,7 +8,6 @@
 
 <script>
 import ChatForm from '../components/ChatForm.vue'
-
 export default {
   name: 'EditView',
   components: {
@@ -21,3 +21,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+  h2{
+    text-align: left;
+    margin-bottom: 30px;
+  }
+</style>
