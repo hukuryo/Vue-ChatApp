@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import store from '../store'
 
+
+
 const routes = [
   {
     path: '/',
@@ -20,6 +22,7 @@ const routes = [
     component: () => import('../views/LoginView.vue')
   }
 ]
+
 
 // ルーターを初期化する記述
 const router = createRouter({

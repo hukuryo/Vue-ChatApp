@@ -9,7 +9,6 @@
         </li>
       </ul>
     </header>
-    <div v-if="$route.query.message">ログイン認証が必要なページです。</div>
   <router-view/>
 </template>
 <script>

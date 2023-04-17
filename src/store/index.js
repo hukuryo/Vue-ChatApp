@@ -10,7 +10,8 @@ export default createStore({
   state: {
     count: 0,
     messages: [],
-    userId: ''
+    userId: '',
+    pass: ''
   },
   getters: {
     getCount: (state) => {
@@ -42,6 +43,9 @@ export default createStore({
     },
     setUserId(state, userId) {
       state.userId = userId
+    },
+    setPass(state, pass) {
+      state.pass = pass
     }
   },
   actions: {
