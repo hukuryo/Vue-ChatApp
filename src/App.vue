@@ -15,7 +15,7 @@
   export default {
     methods: {
       logout () {
-        this.$store.commit('setUserId', '')
+        this.$store.commit('setUsername', '')
         if (this.$route.meta.requiresAuth) {
           this.$router.push({
             path: '/login',

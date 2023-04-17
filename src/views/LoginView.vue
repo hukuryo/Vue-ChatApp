@@ -4,7 +4,7 @@
     <h1 class="h3 mb-3 fw-normal">ログイン</h1>
 
     <div class="form-floating">
-      <input id="name" class="form-control" type="text" v-model="userId">
+      <input id="name" class="form-control" type="text" v-model="username">
       <label for="floatingInput">ユーザー名</label>
     </div>
     <div class="form-floating">
@@ -14,7 +14,7 @@
 
     <div class="checkbox mb-3">
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login()" :disabled="!userId">ログイン</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login()" :disabled="!username">ログイン</button>
   </form>
    <a class="signin-link btn btn-success" >ユーザー登録</a>
   </div>
@@ -24,17 +24,17 @@
 export default {
   data () {
     return {
-      userId: '',
+      username: '',
       pass: ''
     }
   },
   methods: {
     login () {
-      if(this.userId === "fuku" && this.pass === "vue"){
-        this.$store.commit('setUserId', this.userId)
+      if(this.username === "fuku" && this.pass === "vue"){
+        this.$store.commit('setUsername', this.username)
         this.$router.push({path: '/'}) 
       } else {
-        window.alert('ログイン失敗')
+        window.alert('ユーザー名かパスワードが違います。')
       }
     }
   }

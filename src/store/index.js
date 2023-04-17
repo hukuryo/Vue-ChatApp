@@ -10,7 +10,7 @@ export default createStore({
   state: {
     count: 0,
     messages: [],
-    userId: '',
+    username: '',
     pass: ''
   },
   getters: {
@@ -24,7 +24,7 @@ export default createStore({
       return state.messages.find(messages => messages.id === id)
     },
     loggedIn: (state) => {
-      return Boolean(state.userId.trim())
+      return Boolean(state.username.trim())
     }
   },
   mutations: {
@@ -41,8 +41,8 @@ export default createStore({
     delete(state, id){
       state.messages = state.messages.filter(message => message.id !== id)
     },
-    setUserId(state, userId) {
-      state.userId = userId
+    setUsername(state, username) {
+      state.username = username
     },
     setPass(state, pass) {
       state.pass = pass
