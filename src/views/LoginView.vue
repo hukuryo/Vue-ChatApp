@@ -1,22 +1,21 @@
 <template>
   <div class="login-form text-center form-signin" >
     <form>
-    <h1 class="h3 mb-3 fw-normal">ログイン</h1>
+      <h1 class="h3 mb-3 fw-normal">ログイン</h1>
+      <div class="form-floating">
+        <input id="name" class="form-control" type="text" v-model="username">
+        <label for="floatingInput">ユーザー名</label>
+      </div>
+      <div class="form-floating">
+        <input id="password" class="form-control" type="password" placeholder="Password" v-model="pass">
+        <label for="floatingPassword">パスワード</label>
+      </div>
 
-    <div class="form-floating">
-      <input id="name" class="form-control" type="text" v-model="username">
-      <label for="floatingInput">ユーザー名</label>
-    </div>
-    <div class="form-floating">
-      <input id="password" class="form-control" type="password" placeholder="Password" v-model="pass">
-      <label for="floatingPassword">パスワード</label>
-    </div>
-
-    <div class="checkbox mb-3">
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login()" :disabled="!username">ログイン</button>
-  </form>
-   <a class="signin-link btn btn-success" >ユーザー登録</a>
+      <div class="checkbox mb-3">
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login()" :disabled="!username">ログイン</button>
+    </form>
+    <router-link class="signin-link btn btn-success"  to="/signup">ユーザー登録</router-link>
   </div>
 </template>
 

@@ -6,7 +6,6 @@
       <ul class="nav nav-pills">
         <li class="nav-item"><router-link class="btn btn-primary" aria-current="page" v-if="$store.getters.loggedIn" to="/">トップページ</router-link></li>
         <li class="nav-item"><button class="btn btn-danger" @click="logout()" v-if="$store.getters.loggedIn" style="margin: 0 20px;">ログアウト</button>
-
         </li>
       </ul>
     </header>
