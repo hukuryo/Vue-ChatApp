@@ -1,17 +1,23 @@
 <template>
-  <div class="home">
-    <h2>メッセージ一覧</h2>
-     <ul class="list-group" v-if="HasMessages">
-      <li class="list-group-item" v-for="message in messages" :key="message.id">
-        <router-link :to= "{name: 'edit', params: {id: message.id}}">
+  <div role="alert" aria-live="assertive" aria-atomic="true" v-if="HasMessages">
+    <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
+    <div class="message-item" v-for="message in messages" :key="message.id">
+        <div class="toast-header">
+          <i class="fas fa-user"></i>
+          <strong class="me-auto">TODO:ユーザー名を表示</strong>
+          <small class="text-muted"> <i class="far fa-clock"></i>TODO:時間を表示</small>
+        </div>
+      <router-link :to= "{name: 'edit', params: {id: message.id}}" class="link">
+        <div class="toast-body" >
           {{ message.content }}
-        </router-link>
-      </li>
-    </ul>
-    <p v-else>メッセージはありません</p>
+        </div>
+      </router-link>
+    </div>
   </div>
-  <div>
-    <h2>メッセージ作成</h2>
+  <p v-else>メッセージはありません</p>
+  <div >
+    
+    <h2 class="message-title"><i class="far fa-comments"></i>メッセージ作成</h2>
     <ChatForm message=""/>
   </div>
 </template>
@@ -34,13 +40,18 @@ export default {
 }
 </script>
 <style scoped>
-h2{
-  text-align: left;
-}
+  h2{
+    text-align: left;
+    margin: 0 0 15px 10px;
+  }
+  .message-title{
+    margin-top: 100px;
+  }
    ul{
     margin: 0;
     padding: 0;
   }
+
   li{
     list-style: none;
     border-bottom: 1px solid#ccc;
@@ -57,7 +68,27 @@ h2{
   .list-group{
     width: 40%;
   }
+  .toast{
+    margin-bottom: 10px;
+    box-shadow: none;
+  }
+  .fa-comments{
+    margin-right: 10px;
+  }
+  .fa-user{
+    padding-right: 10px;
+  }
+  .fa-list-ul{
+    padding-right: 5px;
+  }
+  .toast-body{
+    text-align: left;
+  }
   .home{
     margin-bottom: 200px;
   }
+  .message-item{
+    margin-bottom: 20px;
+  }
+
 </style>

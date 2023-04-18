@@ -1,6 +1,6 @@
 <template>
   <div class="edit">
-    <h2>メッセージ編集</h2>
+    <h2><i class="fas fa-edit"></i>メッセージ編集</h2>
     <ChatForm v-if="message" :message="message"/>
     <p v-else>指定されたメッセージはありません</p>
   </div>
@@ -24,6 +24,9 @@ export default {
 <style scoped>
   h2{
     text-align: left;
-    margin-bottom: 30px;
+    margin: 0 0 30px 10px;
+  }
+  .fa-edit{
+    padding-right: 7px;
   }
 </style>

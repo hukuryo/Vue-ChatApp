@@ -1,7 +1,7 @@
 <template>
     <div class="center">
         <div class="input">
-            <textarea class="form-control" aria-label="With textarea" v-model="content"></textarea>           
+            <textarea class="form-control" aria-label="With textarea" v-model="content" placeholder="メッセージを入力"></textarea>           
         </div>
         <button type="button" class="btn btn-outline-success" @click="save">メッセージを送信</button>
         <button type="button" class="btn btn-outline-danger" @click="remove" v-if="message.id">メッセージを削除</button>
@@ -27,6 +27,7 @@ export default {
                 message.id = this.message.id
             }
             this.$store.commit('save', message)
+            this.content = ""
             this.$router.push('/')
         },
          remove() {
@@ -44,8 +45,8 @@ export default {
         margin-bottom: 10px;
     }
     textarea {
-        width: 30%;
-        height: 100px;
+        width: 60%;
+    height: 41px;
     }
     .btn-outline-danger{
         margin-left: 10px;
