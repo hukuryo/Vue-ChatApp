@@ -4,8 +4,8 @@
     <div class="message-item" v-for="message in messages" :key="message.id">
         <div class="toast-header">
           <i class="fas fa-user"></i>
-          <strong class="me-auto">TODO:ユーザー名を表示</strong>
-          <small class="text-muted"> <i class="far fa-clock"></i>TODO:時間を表示</small>
+          <strong class="me-auto">{{this.data.username}}</strong>
+          <small id="setName" class="text-muted"> <i class="far fa-clock"></i>TODO:時間を表示</small>
         </div>
       <router-link :to= "{name: 'edit', params: {id: message.id}}" class="link">
         <div class="toast-body" >
@@ -24,10 +24,19 @@
 
 <script>
 import ChatForm from '../components/ChatForm.vue'
+
 export default {
   name: 'HomeView',
+  data(){
+    return{
+      data: {}
+    } 
+  },
   components: {
     ChatForm
+  },
+  mounted(){
+    this.data = JSON.parse(localStorage.getItem("userData"))
   },
   computed: {
     HasMessages() {
@@ -35,6 +44,15 @@ export default {
     },
     messages() {
       return this.$store.getters.getAll
+    },
+  },
+  methods: {
+    getName() {
+      return this.localStorage.getItem("username")
+    },
+    setName() {
+      const name = this.data.username
+      console.log(name)
     }
   }
 }

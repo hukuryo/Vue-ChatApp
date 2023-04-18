@@ -24,16 +24,26 @@ export default {
   data () {
     return {
       username: '',
-      pass: ''
+      pass: '',
+      data: {}
     }
+  },
+  mounted(){
+    this.data = JSON.parse(localStorage.getItem("userData"))
   },
   methods: {
     login () {
-      if(this.username === "fuku" && this.pass === "vue"){
+      const name = this.data.username
+      const pass = this.data.password
+      console.log(name)
+      console.log(pass)
+      console.log(this.username)
+      console.log(this.pass)
+      if(this.username === name && this.pass === pass){
         this.$store.commit('setUsername', this.username)
         this.$router.push({path: '/'}) 
       } else {
-        window.alert('ユーザー名かパスワードが違います。')
+          window.alert('ユーザー名かパスワードが違います。')
       }
     }
   }

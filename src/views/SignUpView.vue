@@ -12,15 +12,37 @@
         </div>
         <div class="checkbox mb-3">
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" @click="signup()">ユーザー登録</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" @click="setUserDate()">ユーザー登録</button>
     </form>
     <router-link class="signin-link btn btn-success"  to="/login">ログイン</router-link>
   </div>
 </template>
 <script>
-export default {
-    
-}
+// const userData = JSON.parse(localStorage.getItem("userData"))
+//   console.log(Object.keys(userData).length) 
+
+  export default {
+    data () {
+      return {
+        username: '',
+        pass: ''
+      }
+    },
+    mounted(){
+      this.data = JSON.parse(localStorage.getItem("userData"))
+    },
+    methods: {
+      setUserDate() {
+        localStorage.setItem("userData", JSON.stringify({
+          id: 1,
+          username: this.username,
+          password: this.pass
+        }))
+        this.$router.push({path: '/login'})
+        window.alert('ユーザー登録が完了しました。')
+      }
+    }
+  }
 </script>
 <style scoped>
   .login-form {
