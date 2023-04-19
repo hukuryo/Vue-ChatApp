@@ -8,18 +8,21 @@
     </div>
 </template>
 <script>
-// 時間を取得する処理
+// 現在の時間を取得する処理
 const getTime = () => {
     let clock = new Date();  
     let hour = clock.getHours();
     let min = clock.getMinutes();
     return hour + ":" + min
 }
+
 export default {
     name: 'ChatForm',
+    // 一覧画面からメッセージ内容を取得
     props: [
         'message'
     ],
+    // メッセージ内容、ユーザー名、送信時間をセット
     data() {
         return {
             content: this.message.content,
@@ -28,10 +31,12 @@ export default {
         }
     },
     methods: {
+        // メッセージを保存する
         save(){
+            const postUserName = JSON.parse(localStorage.getItem("vuex"))
             let message = {
                 content: this.content,
-                username: this.username,
+                username: postUserName.username,
                 time: getTime()
             }
             if(this.message.id){
@@ -41,6 +46,7 @@ export default {
             this.content = ""
             this.$router.push('/')
         },
+        // メッセージを削除する
          remove() {
             this.$store.commit('delete', this.message.id)
             this.$router.push('/')

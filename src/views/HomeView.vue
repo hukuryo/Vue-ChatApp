@@ -1,10 +1,11 @@
 <template>
   <div class="index" role="alert" aria-live="assertive" aria-atomic="true" v-if="HasMessages">
+    <p class="loginName">ログイン中のユーザー名：<strong>{{this.data.username}}</strong></p>
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
     <div class="message-item" v-for="message in messages" :key="message.id">
         <div class="toast-header">
           <i class="fas fa-user"></i>
-          <strong class="me-auto">{{this.data.username}}</strong>
+          <strong class="me-auto">{{message.username}}</strong>
           <small id="setTime" class="text-muted"> <i class="far fa-clock"></i>{{ message.time }}</small>
         </div>
       <router-link :to= "{name: 'edit', params: {id: message.id}}" class="link">
@@ -26,6 +27,7 @@ import ChatForm from '../components/ChatForm.vue'
 
 export default {
   name: 'HomeView',
+  // ユーザーデータを格納する変数を準備
   data(){
     return{
       data: {}
@@ -35,6 +37,8 @@ export default {
     ChatForm
   },
   mounted(){
+    // ローカルストレージからユーザーデータを取得
+    this.data = JSON.parse(localStorage.getItem("vuex"))
     // 画面のトップへ戻るボタンの実装
     const windowTop = document.body.scrollTop;
     const pageTop = document.getElementById('page-top');
@@ -45,13 +49,9 @@ export default {
         behavior: 'smooth' 
       });
     });
-
-    this.data = JSON.parse(localStorage.getItem("vuex"))
-    console.log(this.data.username)
-    
-    
   },
   computed: {
+    
     HasMessages() {
       return this.$store.getters.getCount
     },
@@ -59,11 +59,7 @@ export default {
       return this.$store.getters.getAll
     },
   },
-  methods: {
-    getName() {
-      return this.localStorage.getItem("username")
-    },
-  }
+  
 }
 
 </script>
@@ -71,6 +67,10 @@ export default {
   h2{
     text-align: left;
     margin: 0 0 15px 10px;
+  }
+  .loginName{
+    text-align: right;
+    margin-right: 10px;
   }
   .message-title{
     margin-top: 100px;
@@ -124,7 +124,7 @@ export default {
   #page-top{
     position: fixed;
     bottom: 40px;
-    right: 60px;
+    right: 4%;
     height: 59px;
     width: 58px;
     color: #FFF;
@@ -140,7 +140,7 @@ export default {
   .fix{
     position: fixed;
     bottom: 20px;
-    left: 83px;
+    left: 5%;
     width: 80%;
   }
 </style>
