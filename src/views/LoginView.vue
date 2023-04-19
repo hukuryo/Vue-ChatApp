@@ -1,7 +1,7 @@
 <template>
   <div class="login-form text-center form-signin" >
     <form>
-      <h1 class="h3 mb-3 fw-normal">ログイン</h1>
+      <h1 class="h3 mb-3 fw-normal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>ログイン</h1>
       <div class="form-floating">
         <input id="name" class="form-control" type="text" v-model="username">
         <label for="floatingInput">ユーザー名</label>
@@ -32,23 +32,21 @@ export default {
       const data = JSON.parse(localStorage.getItem("vuex"))
       const setName = this.username
       const setPass = this.pass
-      
-      for(let i = 0; i <= data.users.length; i++){
         try{
-          const name = data.users[i].username
-          const pass = data.users[i].pass
-          if(name === setName && pass === setPass){
-            this.$store.commit('setUsername', this.username)
-            window.alert('ログインに成功しました。')
-            this.$router.push({path: '/'})
-          }else{
-            continue
-          }
-        }catch(e){
-          continue
+          for(let i = 0; i <= data.users.length; i++){
+            const name = data.users[i].username
+            const pass = data.users[i].pass
+            if(name === setName && pass === setPass){
+              this.$store.commit('setUsername', this.username)
+              this.$router.push('/')
+              break
+            }else{
+              continue
+            }
         }
-      }
-      // window.alert('ユーザー名かパスワードが違います。')
+        }catch(e){
+          window.alert("ユーザー名かパスワードが間違っています。")
+        }
     }
   }
 }

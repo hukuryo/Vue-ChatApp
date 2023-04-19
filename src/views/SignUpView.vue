@@ -1,7 +1,7 @@
 <template>
   <div class="login-form text-center form-signin" >
     <form>
-        <h1 class="h3 mb-3 fw-normal">ユーザー登録</h1>
+        <h1 class="h3 mb-3 fw-normal"><i class="fas fa-user-plus" style="margin-right: 3px;"></i>ユーザー登録</h1>
         <div class="form-floating">
             <input id="name" class="form-control" type="text" v-model="username">
             <label for="floatingInput">ユーザー名</label>

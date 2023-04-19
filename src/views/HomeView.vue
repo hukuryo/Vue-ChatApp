@@ -1,18 +1,18 @@
 <template>
   <div class="index" role="alert" aria-live="assertive" aria-atomic="true" v-if="HasMessages">
-    <p class="loginName">ログイン中のユーザー名：<strong>{{ this.data.username }}</strong></p>
+    <p class="loginName">ログイン中のユーザー：<strong>{{ this.data.username }}</strong></p>
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
     <div class="message-item" v-for="message in messages" :key="message.id">
         <div class="toast-header">
           <i class="fas fa-user"></i>
           <strong id="ooo" class="me-auto">{{ message.username }}</strong>
-          <small id="setTime" class="text-muted"> <i class="far fa-clock"></i>{{ message.time }}</small>
+          <small id="setTime" class="text-muted"> <i class="far fa-clock" style="margin-right: 2px;"></i>{{ message.time }}</small>
         </div>
         <div class="toast-body" >
           {{ message.content }}
           <div class="edit-btn" v-if="message.username === this.data.username">
             <router-link :to= "{name: 'edit', params: {id: message.id}}">
-              <button class="btn btn-success" id="edit-btn" type="button">編集</button>
+              <button class="btn btn-success" id="edit-btn" type="button">編集<i class="fas fa-edit" style="margin-left: 3px;"></i></button>
             </router-link>
           </div>
         </div>
