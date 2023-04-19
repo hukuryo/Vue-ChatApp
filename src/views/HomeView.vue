@@ -5,7 +5,7 @@
         <div class="toast-header">
           <i class="fas fa-user"></i>
           <strong class="me-auto">{{this.data.username}}</strong>
-          <small id="setName" class="text-muted"> <i class="far fa-clock"></i>TODO:時間を表示</small>
+          <small id="setTime" class="text-muted"> <i class="far fa-clock"></i>{{ message.time }}</small>
         </div>
       <router-link :to= "{name: 'edit', params: {id: message.id}}" class="link">
         <div class="toast-body" >
@@ -16,11 +16,8 @@
   </div>
   <p v-else>メッセージはありません</p>
   <button id="page-top" href="#"><span><i class="fas fa-chevron-right"></i></span></button>
-  <div >
-    <div class="fix">
-      <!-- <h2 class="message-title"><i class="far fa-comments"></i>メッセージ作成</h2> -->
-      <ChatForm message=""/>
-    </div>
+  <div class="fix">
+    <ChatForm message=""/>
   </div>
 </template>
 
@@ -38,6 +35,7 @@ export default {
     ChatForm
   },
   mounted(){
+    // 画面のトップへ戻るボタンの実装
     const windowTop = document.body.scrollTop;
     const pageTop = document.getElementById('page-top');
     pageTop.addEventListener('click', function(e) {
@@ -47,7 +45,11 @@ export default {
         behavior: 'smooth' 
       });
     });
-    this.data = JSON.parse(localStorage.getItem("userData"))
+
+    this.data = JSON.parse(localStorage.getItem("vuex"))
+    console.log(this.data.username)
+    
+    
   },
   computed: {
     HasMessages() {
@@ -61,10 +63,6 @@ export default {
     getName() {
       return this.localStorage.getItem("username")
     },
-    setName() {
-      const name = this.data.username
-      console.log(name)
-    }
   }
 }
 
@@ -142,7 +140,7 @@ export default {
   .fix{
     position: fixed;
     bottom: 20px;
-    left: 43px;
+    left: 83px;
     width: 80%;
   }
 </style>

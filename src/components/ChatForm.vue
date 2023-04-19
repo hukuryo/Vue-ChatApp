@@ -8,6 +8,13 @@
     </div>
 </template>
 <script>
+// 時間を取得する処理
+const getTime = () => {
+    let clock = new Date();  
+    let hour = clock.getHours();
+    let min = clock.getMinutes();
+    return hour + ":" + min
+}
 export default {
     name: 'ChatForm',
     props: [
@@ -15,13 +22,17 @@ export default {
     ],
     data() {
         return {
-            content: this.message.content
+            content: this.message.content,
+            username: "",
+            time: getTime()
         }
     },
     methods: {
         save(){
             let message = {
-                content: this.content
+                content: this.content,
+                username: this.username,
+                time: getTime()
             }
             if(this.message.id){
                 message.id = this.message.id
@@ -33,7 +44,8 @@ export default {
          remove() {
             this.$store.commit('delete', this.message.id)
             this.$router.push('/')
-        }
+        },
+        
     }
 }
 </script>
