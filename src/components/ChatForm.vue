@@ -22,7 +22,7 @@ export default {
         save(){
             let message = {
                 content: this.content
-            } 
+            }
             if(this.message.id){
                 message.id = this.message.id
             }
@@ -50,6 +50,5 @@ export default {
     }
     .btn-outline-danger{
         margin-left: 10px;
-    }
-    
+    } 
 </style>

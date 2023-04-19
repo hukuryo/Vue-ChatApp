@@ -25,26 +25,30 @@ export default {
     return {
       username: '',
       pass: '',
-      data: {}
     }
-  },
-  mounted(){
-    this.data = JSON.parse(localStorage.getItem("userData"))
   },
   methods: {
     login () {
-      const name = this.data.username
-      const pass = this.data.password
-      console.log(name)
-      console.log(pass)
-      console.log(this.username)
-      console.log(this.pass)
-      if(this.username === name && this.pass === pass){
-        this.$store.commit('setUsername', this.username)
-        this.$router.push({path: '/'}) 
-      } else {
-          window.alert('ユーザー名かパスワードが違います。')
+      const data = JSON.parse(localStorage.getItem("vuex"))
+      const setName = this.username
+      const setPass = this.pass
+      
+      for(let i = 0; i <= data.users.length; i++){
+        try{
+          const name = data.users[i].username
+          const pass = data.users[i].pass
+          if(name === setName && pass === setPass){
+            this.$store.commit('setUsername', this.username)
+            window.alert('ログインに成功しました。')
+            this.$router.push({path: '/'})
+          }else{
+            continue
+          }
+        }catch(e){
+          continue
+        }
       }
+      //window.alert('ユーザー名かパスワードが違います。')
     }
   }
 }

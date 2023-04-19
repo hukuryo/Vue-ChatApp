@@ -8,10 +8,10 @@ const vuexPersist = new VuexPersistence({
 
 export default createStore({
   state: {
-    count: 0,
+    messageCount: 0,
     messages: [],
-    username: '',
-    pass: ''
+    userCount: 0,
+    users: []
   },
   getters: {
     getCount: (state) => {
@@ -34,8 +34,17 @@ export default createStore({
         let x = state.messages.find(messages => messages.id === newMessage.id)
         x.content = newMessage.content
       }else{
-        newMessage.id = ++state.count
+        newMessage.id = ++state.messageCount
         state.messages.unshift(newMessage)
+      }
+    },
+    userSave(state, newUser){
+      if(newUser.id){
+        let x = state.users.find(users => users.id === newUser.id)
+        x.username = newUser.username
+      }else{
+        newUser.id = ++state.messageCount
+        state.users.unshift(newUser)
       }
     },
     delete(state, id){
