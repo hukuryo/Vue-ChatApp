@@ -33,6 +33,7 @@ export default {
     methods: {
         // メッセージを保存する
         save(){
+            // window.location.reload(true)
             let message = {
                 content: this.content,
                 username: postUserName.username,

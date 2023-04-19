@@ -34,7 +34,8 @@ export default {
   // ユーザーデータを格納する変数を準備
   data(){
     return{
-      data: {}
+      data: {},
+      username: ""
     } 
   },
   components: {
@@ -62,6 +63,11 @@ export default {
       return this.$store.getters.getAll
     },
   },
+  watch: {
+    username: function () {
+      this.data.username = this.messages.username
+    }
+  }
 }
 
 </script>

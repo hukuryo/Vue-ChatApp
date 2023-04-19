@@ -11,7 +11,9 @@ export default createStore({
     messageCount: 0,
     messages: [],
     userCount: 0,
-    users: []
+    users: [],
+    username: null,
+    pass: null
   },
   getters: {
     getCount: (state) => {
