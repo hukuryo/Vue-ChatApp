@@ -15,7 +15,7 @@ const getTime = () => {
     let min = clock.getMinutes();
     return hour + ":" + min
 }
-
+const postUserName = JSON.parse(localStorage.getItem("vuex"))
 export default {
     name: 'ChatForm',
     // 一覧画面からメッセージ内容を取得
@@ -33,7 +33,6 @@ export default {
     methods: {
         // メッセージを保存する
         save(){
-            const postUserName = JSON.parse(localStorage.getItem("vuex"))
             let message = {
                 content: this.content,
                 username: postUserName.username,
@@ -48,12 +47,17 @@ export default {
         },
         // メッセージを削除する
          remove() {
-            this.$store.commit('delete', this.message.id)
-            this.$router.push('/')
-        },
-        
+            const result = window.confirm('メッセージを削除してよろしいですか？')
+            if(result){
+                this.$store.commit('delete', this.message.id)
+                this.$router.push('/')
+            }else{
+                return
+            }
+        }
     }
 }
+
 </script>
 <style scoped>
     .center{

@@ -1,18 +1,21 @@
 <template>
   <div class="index" role="alert" aria-live="assertive" aria-atomic="true" v-if="HasMessages">
-    <p class="loginName">ログイン中のユーザー名：<strong>{{this.data.username}}</strong></p>
+    <p class="loginName">ログイン中のユーザー名：<strong>{{ this.data.username }}</strong></p>
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
     <div class="message-item" v-for="message in messages" :key="message.id">
         <div class="toast-header">
           <i class="fas fa-user"></i>
-          <strong class="me-auto">{{message.username}}</strong>
+          <strong id="ooo" class="me-auto">{{ message.username }}</strong>
           <small id="setTime" class="text-muted"> <i class="far fa-clock"></i>{{ message.time }}</small>
         </div>
-      <router-link :to= "{name: 'edit', params: {id: message.id}}" class="link">
         <div class="toast-body" >
           {{ message.content }}
+          <div class="edit-btn" v-if="message.username === this.data.username">
+            <router-link :to= "{name: 'edit', params: {id: message.id}}">
+              <button class="btn btn-success" id="edit-btn" type="button">編集</button>
+            </router-link>
+          </div>
         </div>
-      </router-link>
     </div>
   </div>
   <p v-else>メッセージはありません</p>
@@ -21,6 +24,7 @@
     <ChatForm message=""/>
   </div>
 </template>
+
 
 <script>
 import ChatForm from '../components/ChatForm.vue'
@@ -46,12 +50,11 @@ export default {
       e.preventDefault();
       window.scrollTo({
         top: windowTop, 
-        behavior: 'smooth' 
+        behavior: 'smooth'
       });
     });
   },
-  computed: {
-    
+  computed: {    
     HasMessages() {
       return this.$store.getters.getCount
     },
@@ -59,7 +62,6 @@ export default {
       return this.$store.getters.getAll
     },
   },
-  
 }
 
 </script>
@@ -117,6 +119,10 @@ export default {
   }
   .home{
     margin-bottom: 200px;
+  }
+  .edit-btn{
+    display: flex;
+    justify-content: flex-end;
   }
   .message-item{
     margin-bottom: 20px;
