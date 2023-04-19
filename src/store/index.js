@@ -24,7 +24,7 @@ export default createStore({
       return state.messages.find(messages => messages.id === id)
     },
     loggedIn: (state) => {
-      return Boolean(state.username.trim())
+      return Boolean(state.username)
     }
   },
   mutations: {

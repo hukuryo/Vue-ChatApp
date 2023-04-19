@@ -48,7 +48,7 @@ export default {
           continue
         }
       }
-      //window.alert('ユーザー名かパスワードが違います。')
+      // window.alert('ユーザー名かパスワードが違います。')
     }
   }
 }
