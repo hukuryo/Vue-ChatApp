@@ -39,7 +39,6 @@ export default {
             if(name === setName && pass === setPass){
               this.$store.commit('setUsername', this.username)
               this.$router.push('/')
-              
               break
             }else{
               continue
@@ -50,7 +49,7 @@ export default {
         }
         setTimeout(function() {
           location.reload();
-        }, 5);
+        }, 1);
     }
   }
 }
