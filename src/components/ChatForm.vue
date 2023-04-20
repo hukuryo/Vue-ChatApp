@@ -7,8 +7,8 @@
         <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
     </div>
 </template>
-<script>
 
+<script>
 // 現在の時間を取得する処理
 const getTime = () => {
     let clock = new Date();  
@@ -16,7 +16,6 @@ const getTime = () => {
     let min = clock.getMinutes();
     return hour + ":" + min
 }
-
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
 export default {
     name: 'ChatForm',
@@ -39,8 +38,11 @@ export default {
         // メッセージを保存する
         save(){
             let message = {
+                // メッセージ内容
                 content: this.content,
+                // 送信者
                 username: postUserName.username,
+                // 送信時間
                 time: getTime()
             }
             if(this.message.id){
@@ -60,15 +62,11 @@ export default {
             }else{
                 return
             }
-        },
-        submitForm(event) {
-            event.preventDefault();
-            // フォームの送信処理
         }
     }
 }
-
 </script>
+
 <style scoped>
     .center{
         text-align: left;

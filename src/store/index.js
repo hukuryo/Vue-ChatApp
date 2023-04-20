@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { VuexPersistence } from 'vuex-persist'
 
-
+// Vuex-persistを使えるようにするための記述
 const vuexPersist = new VuexPersistence({
   storage: localStorage
 })
@@ -11,8 +11,7 @@ export default createStore({
     messageCount: 0,
     messages: [],
     userCount: 0,
-    users: [],
-    username: null
+    users: []
   },
   getters: {
     getCount: (state) => {
@@ -26,13 +25,12 @@ export default createStore({
     },
     loggedIn: (state) => {
       return Boolean(state.username)
-    },
-    getUserName: (state) => {
-      return state.username
     }
   },
   mutations: {
+    // Vuex-persistを使えるようにするための記述
     RESTORE_MUTATION: vuexPersist.RESTORE_MUTATION,
+    // メッセージ内容を保存
     save(state, newMessage) {
       if(newMessage.id){
         let x = state.messages.find(messages => messages.id === newMessage.id)
@@ -42,6 +40,7 @@ export default createStore({
         state.messages.unshift(newMessage)
       }
     },
+    // ユーザー情報を保存する
     userSave(state, newUser){
       if(newUser.id){
         let x = state.users.find(users => users.id === newUser.id)
@@ -51,6 +50,7 @@ export default createStore({
         state.users.unshift(newUser)
       }
     },
+    // メッセージを削除する
     delete(state, id){
       state.messages = state.messages.filter(message => message.id !== id)
     },
@@ -65,5 +65,6 @@ export default createStore({
   },
   modules: {
   },
+  // Vuex-persistを使えるようにするための記述
   plugins: [vuexPersist.plugin]
 })

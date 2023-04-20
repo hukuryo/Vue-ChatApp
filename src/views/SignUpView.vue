@@ -17,6 +17,7 @@
     <router-link class="signin-link btn btn-success"  to="/login">ログイン</router-link>
   </div>
 </template>
+
 <script>
   export default {
     data () {
@@ -40,6 +41,7 @@
     }
   }
 </script>
+
 <style scoped>
   .login-form {
     width: 70%;

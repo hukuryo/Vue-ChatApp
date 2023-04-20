@@ -10,9 +10,6 @@
         <input id="password" class="form-control" type="password" placeholder="Password" v-model="pass">
         <label for="floatingPassword">パスワード</label>
       </div>
-
-      <div class="checkbox mb-3">
-      </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login()" :disabled="!username">ログイン</button>
     </form>
     <router-link class="signin-link btn btn-success"  to="/signup">ユーザー登録</router-link>
@@ -33,6 +30,7 @@ export default {
       const setName = this.username
       const setPass = this.pass
         try{
+          // ローカルストレージからユーザー情報を取得し、入力された情報と比較する
           for(let i = 0; i <= data.users.length; i++){
             const name = data.users[i].username
             const pass = data.users[i].pass
@@ -47,6 +45,7 @@ export default {
         }catch(e){
           window.alert("ユーザー名かパスワードが間違っています。")
         }
+        //ログイン後に画面をリロードさせ、 Formを読み込ませる
         setTimeout(function() {
           location.reload();
         }, 1);
@@ -54,6 +53,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
   .login-form {
     width: 70%;

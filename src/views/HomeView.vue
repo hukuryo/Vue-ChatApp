@@ -26,10 +26,8 @@
   </div>
 </template>
 
-
 <script>
 import ChatForm from '../components/ChatForm.vue'
-
 
 export default {
   name: 'HomeView',
@@ -56,10 +54,6 @@ export default {
         behavior: 'smooth'
       });
     });
-  //   setTimeout(function() {
-  //   location.reload();
-    
-  // }, 50);
   },
   computed: {    
     HasMessages() {
@@ -69,14 +63,9 @@ export default {
       return this.$store.getters.getAll
     }
   }
-  // watch: {
-  //   data: function (newName, oldName){
-  //     this.username
-  //   }
-  // }
 }
-
 </script>
+
 <style scoped>
   h2{
     text-align: left;

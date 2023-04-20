@@ -17,12 +17,14 @@ export default {
   },
   computed: {
     message() {
+      // URLからIDを受け取る
       const id = parseInt(this.$route.params.id)
       return this.$store.getters.getMessageById(id)
     },
   }
 }
 </script>
+
 <style scoped>
   h2{
     text-align: left;
