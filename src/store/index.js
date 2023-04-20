@@ -12,8 +12,7 @@ export default createStore({
     messages: [],
     userCount: 0,
     users: [],
-    username: null,
-    pass: null
+    username: null
   },
   getters: {
     getCount: (state) => {
@@ -27,6 +26,9 @@ export default createStore({
     },
     loggedIn: (state) => {
       return Boolean(state.username)
+    },
+    getUserName: (state) => {
+      return state.username
     }
   },
   mutations: {

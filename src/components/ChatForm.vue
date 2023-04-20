@@ -3,11 +3,12 @@
         <div class="input">
             <textarea class="form-control" aria-label="With textarea" v-model="content" placeholder="メッセージを入力"></textarea>           
         </div>
-        <button type="button" class="btn btn-outline-success" @click="save">メッセージを送信</button>
-        <button type="button" class="btn btn-outline-danger" @click="remove" v-if="message.id">メッセージを削除</button>
+        <button type="submit" class="btn btn-outline-success" @click="save">メッセージを送信</button>
+        <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
     </div>
 </template>
 <script>
+
 // 現在の時間を取得する処理
 const getTime = () => {
     let clock = new Date();  
@@ -15,6 +16,7 @@ const getTime = () => {
     let min = clock.getMinutes();
     return hour + ":" + min
 }
+
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
 export default {
     name: 'ChatForm',
@@ -26,14 +28,16 @@ export default {
     data() {
         return {
             content: this.message.content,
-            username: "",
+            username: postUserName.username,
             time: getTime()
         }
+    },
+    mounted(){
+        this.username = postUserName
     },
     methods: {
         // メッセージを保存する
         save(){
-            // window.location.reload(true)
             let message = {
                 content: this.content,
                 username: postUserName.username,
@@ -45,6 +49,7 @@ export default {
             this.$store.commit('save', message)
             this.content = ""
             this.$router.push('/')
+            
         },
         // メッセージを削除する
          remove() {
@@ -55,6 +60,10 @@ export default {
             }else{
                 return
             }
+        },
+        submitForm(event) {
+            event.preventDefault();
+            // フォームの送信処理
         }
     }
 }

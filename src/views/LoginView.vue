@@ -39,14 +39,18 @@ export default {
             if(name === setName && pass === setPass){
               this.$store.commit('setUsername', this.username)
               this.$router.push('/')
+              
               break
             }else{
               continue
             }
-        }
+          }
         }catch(e){
           window.alert("ユーザー名かパスワードが間違っています。")
         }
+        setTimeout(function() {
+          location.reload();
+        }, 5);
     }
   }
 }
