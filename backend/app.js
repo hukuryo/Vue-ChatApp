@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -14,18 +12,35 @@ app.use(cors({
   credentials: true
 }));
 
-app.options('/api/v1/quiz', cors());
 
 // POSTメソッドでフォームの値を受け取る
-
 app.post('/api/v1/quiz', (req, res) => {
-    const person = {
-        body: req.body.name,
-        content: req.body.text
-    }   
-    const personJSON = JSON.stringify(person)
-    fs.writeFileSync('info.json', personJSON)
+    try{
+        fs.readFile('info.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            // ファイルをJSONパースして配列に変換する
+            let arr = JSON.parse(data);
+            
+            // 新しいオブジェクトを作成して配列に追加する
+            arr.push({ body: req.body.name, content: req.body.text });
+            
+            // 配列をJSON文字列に変換する
+            let newData = JSON.stringify(arr);
+            
+            // ファイルに書き込む
+            fs.writeFile('info.json', newData, 'utf8', (err) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('JSONデータを追加！');
+            });
+        });
+    }catch(e){
+        console.log("error")
+    }
 });
-
-
 app.listen(3000, () => console.log('Server running on port 3000'));
