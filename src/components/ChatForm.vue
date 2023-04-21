@@ -1,7 +1,7 @@
 <template>
     <div class="center">
         <div class="input">
-            <textarea class="form-control" aria-label="With textarea" v-model="content" placeholder="メッセージを入力"></textarea>           
+            <textarea class="form-control" aria-label="With textarea" v-model="content" placeholder="メッセージを入力" minlength="1"></textarea>           
         </div>
         <button type="submit" class="btn btn-outline-success" @click="save">メッセージを送信</button>
         <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
@@ -37,6 +37,9 @@ export default {
     methods: {
         // メッセージを保存する
         save(){
+            if(this.content == "undefined"){
+                window.alert("メッセージを入力してください")
+            } 
             let message = {
                 // メッセージ内容
                 content: this.content,
@@ -45,6 +48,7 @@ export default {
                 // 送信時間
                 time: getTime()
             }
+            console.log(this.content)
             if(this.message.id){
                 message.id = this.message.id
             }
