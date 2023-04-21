@@ -1,14 +1,9 @@
-// const express = require('express')
-// const app = express()
-
-// app.get('/', (req, res) => res.send('Hello World!'))
-
-// app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
 
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const fs = require('fs')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,9 +17,15 @@ app.use(cors({
 app.options('/api/v1/quiz', cors());
 
 // POSTメソッドでフォームの値を受け取る
+
 app.post('/api/v1/quiz', (req, res) => {
-    const answer = req.body.text;
-    res.send(answer);
+    const person = {
+        body: req.body.name,
+        content: req.body.text
+    }   
+    const personJSON = JSON.stringify(person)
+    fs.writeFileSync('info.json', personJSON)
 });
+
 
 app.listen(3000, () => console.log('Server running on port 3000'));
