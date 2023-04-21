@@ -36,11 +36,26 @@ app.post('/api/v1/quiz', (req, res) => {
                     console.error(err);
                     return;
                 }
-                console.log('JSONデータを追加！');
+                console.log('JSONデータを追加!');
             });
         });
     }catch(e){
         console.log("error")
     }
 });
+
+app.get('/api/v1/quiz', (req, res) => {
+    try{
+        //データを取りだす
+        const bufferData = fs.readFileSync('info.json')
+        // データを文字列に変換
+        const dataJSON = bufferData.toString()
+        //JSONのデータをJavascriptのオブジェクトに
+        const data = JSON.parse(dataJSON)
+        console.log(data)
+    }catch(e){
+        console.log("JSONデータなし")
+    }
+});
+
 app.listen(3000, () => console.log('Server running on port 3000'));
