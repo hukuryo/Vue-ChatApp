@@ -16,8 +16,7 @@ export default {
     reception(){
       axios.get("http://localhost:3000/api/v1/quiz")
         .then(response => {
-          console.log(response)
-          console.log('iddiiii')
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error)

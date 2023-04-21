@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const fs = require('fs')
+const fs = require('fs');
+const { default: axios } = require('axios');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -53,6 +54,7 @@ app.get('/api/v1/quiz', (req, res) => {
         //JSONのデータをJavascriptのオブジェクトに
         const data = JSON.parse(dataJSON)
         console.log(data)
+        res.send(data)
     }catch(e){
         console.log("JSONデータなし")
     }
