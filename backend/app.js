@@ -14,6 +14,10 @@ app.use(cors({
 }));
 
 
+//
+// メッセージに関するAPI
+//  
+// メッセージの取得
 app.get('/api/message/get', (req, res) => {
     try{
         const fs = require('fs')
@@ -29,6 +33,7 @@ app.get('/api/message/get', (req, res) => {
     }
 })
 
+// メッセージにIDを振るために、メッセージのlengthを取得
 async function getArrayLength() {
     try {
       const data = await fs.promises.readFile('messages.json', 'utf8');
@@ -39,8 +44,7 @@ async function getArrayLength() {
       console.error(error);
     }
 }
-
-// POSTメソッドでフォームの値を受け取る
+// メッセージの保存をする処理
 app.post('/api/message/post', (req, res) => {
     try{
         getArrayLength()
@@ -71,6 +75,14 @@ app.post('/api/message/post', (req, res) => {
         console.log("error")
     }
 });
+
+// メッセージを編集
+
+
+// 
+// ログイン、ユーザー登録に関するAPI
+// 
+
 
 
 

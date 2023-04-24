@@ -11,7 +11,7 @@
         <div class="toast-body" >
           {{ item.messageText }}
           <!-- ログインしているユーザーと送信者の名前が不一致の場合、編集ボタンを表示しない -->
-          <div class="edit-btn" v-if="item.username === this.data.username">
+          <div class="edit-btn" v-if="item.username === this.username">
             <router-link :to= "{name: 'edit', params: {id: item.id}}">
               <button class="btn btn-success" id="edit-btn" type="button">編集<i class="fas fa-edit" style="margin-left: 3px;"></i></button>
             </router-link>
@@ -62,23 +62,19 @@ export default {
     HasMessages() {
       return this.$store.getters.getCount
     },
-    // messages() {
-    //   return this.$store.getters.iii
-    // },
     messages() {
       return this.$store.getters.getAll
     },
 
   },
   created(){
-    this.iii()
+    this.getMessages()
   },
   methods: {
-    iii() {  
+    getMessages() {  
       axios.get("http://localhost:3000/api/message/get")
         .then(response => {
           this.data = response.data
-          console.log(this.data)
         })
         .catch(error => {
           console.log(error)
