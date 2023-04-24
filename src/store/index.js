@@ -5,7 +5,7 @@ import { VuexPersistence } from 'vuex-persist'
 const vuexPersist = new VuexPersistence({
   storage: localStorage
 })
-
+import axios from 'axios'
 export default createStore({
   state: {
     messageCount: 0,
@@ -25,7 +25,16 @@ export default createStore({
     },
     loggedIn: (state) => {
       return Boolean(state.username)
-    }
+    },
+    getUserData() {
+      axios.get("http://localhost:3000/api/message/get", )
+        .then(response => {
+         return response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
   },
   mutations: {
     // Vuex-persistを使えるようにするための記述

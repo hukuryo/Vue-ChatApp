@@ -1,24 +1,25 @@
 <template>
-  <p class="loginName"><strong>{{ this.data.username }}</strong>でログイン中</p>
+  <p class="loginName"><strong>{{ this.username }}</strong>でログイン中</p>
   <div class="index" role="alert" aria-live="assertive" aria-atomic="true" v-if="HasMessages">
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
-    <div class="message-item" v-for="message in messages" :key="message.id">
+    <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
           <i class="fas fa-user"></i>
-          <strong class="me-auto">{{ message.username }}</strong>
-          <small id="setTime" class="text-muted"> <i class="far fa-clock" style="margin-right: 2px;"></i>{{ message.time }}</small>
+          <strong class="me-auto">{{ item.username }}</strong>
+          <small id="setTime" class="text-muted"> <i class="far fa-clock" style="margin-right: 2px;"></i>{{ item.time }}</small>
         </div>
         <div class="toast-body" >
-          {{ message.content }}
+          {{ item.messageText }}
           <!-- ログインしているユーザーと送信者の名前が不一致の場合、編集ボタンを表示しない -->
-          <div class="edit-btn" v-if="message.username === this.data.username">
-            <router-link :to= "{name: 'edit', params: {id: message.id}}">
+          <div class="edit-btn" v-if="item.username === this.data.username">
+            <router-link :to= "{name: 'edit', params: {id: item.id}}">
               <button class="btn btn-success" id="edit-btn" type="button">編集<i class="fas fa-edit" style="margin-left: 3px;"></i></button>
             </router-link>
           </div>
         </div>
     </div>
   </div>
+  
   <p v-else>メッセージはありません</p>
   <button id="page-top" href="#"><span><i class="fas fa-chevron-right"></i></span></button>
   <div class="fix">
@@ -28,14 +29,16 @@
 
 <script>
 import ChatForm from '../components/ChatForm.vue'
+import axios from 'axios'
 
+const postUserName = JSON.parse(localStorage.getItem("vuex"))
 export default {
   name: 'HomeView',
   // ユーザーデータを格納する変数を準備
   data(){
     return{
       data: {},
-      username: ""
+      username: postUserName.username
     } 
   },
   components: {
@@ -59,11 +62,32 @@ export default {
     HasMessages() {
       return this.$store.getters.getCount
     },
+    // messages() {
+    //   return this.$store.getters.iii
+    // },
     messages() {
       return this.$store.getters.getAll
-    }
+    },
+
+  },
+  created(){
+    this.iii()
+  },
+  methods: {
+    iii() {  
+      axios.get("http://localhost:3000/api/message/get")
+        .then(response => {
+          this.data = response.data
+          console.log(this.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
   }
 }
+
+
 </script>
 
 <style scoped>

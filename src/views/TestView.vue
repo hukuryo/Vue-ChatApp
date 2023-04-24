@@ -1,5 +1,5 @@
 <template>
-  <form action="http://localhost:3000/api/v1/quiz" method="POST" >
+  <form action="http://localhost:3000/api/message/post" method="POST" >
     <input type="text" name="name">
     <input type="text" name="text">
     <button type="submit">送信</button>
@@ -14,7 +14,7 @@ export default {
   methods: {
     // JSONデータをもらう
     reception(){
-      axios.get("http://localhost:3000/api/v1/quiz")
+      axios.get("http://localhost:3000/api/message/get")
         .then(response => {
           console.log(response.data)
         })

@@ -1,14 +1,17 @@
 <template>
     <div class="center">
-        <div class="input">
-            <textarea class="form-control" aria-label="With textarea" v-model="content" placeholder="メッセージを入力" minlength="1"></textarea>           
-        </div>
-        <button type="submit" class="btn btn-outline-success" @click="save">メッセージを送信</button>
-        <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
+        <form>
+            <div class="input">
+                <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="content" placeholder="メッセージを入力" minlength="1"></textarea>           
+            </div>
+            <button type="submit" class="btn btn-outline-success" @click="save">メッセージを送信</button>
+            <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
+        </form>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 // 現在の時間を取得する処理
 const getTime = () => {
     let clock = new Date();  
@@ -37,9 +40,6 @@ export default {
     methods: {
         // メッセージを保存する
         save(){
-            if(this.content == "undefined"){
-                window.alert("メッセージを入力してください")
-            } 
             let message = {
                 // メッセージ内容
                 content: this.content,
@@ -48,13 +48,32 @@ export default {
                 // 送信時間
                 time: getTime()
             }
-            console.log(this.content)
-            if(this.message.id){
-                message.id = this.message.id
-            }
-            this.$store.commit('save', message)
-            this.content = ""
+            axios.post('http://localhost:3000/api/message/post', message)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+            });
             this.$router.push('/')
+            // if(this.content == "undefined"){
+            //     window.alert("メッセージを入力してください")
+            // } 
+            // let message = {
+            //     // メッセージ内容
+            //     content: this.content,
+            //     // 送信者
+            //     username: postUserName.username,
+            //     // 送信時間
+            //     time: getTime()
+            // }
+            // console.log(this.content)
+            // if(this.message.id){
+            //     message.id = this.message.id
+            // }
+            // this.$store.commit('save', message)
+            // this.content = ""
+            // this.$router.push('/')
             
         },
         // メッセージを削除する
