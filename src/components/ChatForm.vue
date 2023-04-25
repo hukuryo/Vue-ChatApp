@@ -7,6 +7,7 @@
             <button type="submit" class="btn btn-outline-success" @click="save">メッセージを送信</button>
             <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
         </form>
+        <button @click="test">test</button>
     </div>
 </template>
 
@@ -63,8 +64,26 @@ export default {
             });
             this.$router.push('/');
         },
+         test(){
+            const id = parseInt(this.$route.params.id)
+            let editMessageData  = {
+                id: id,
+                messageText: this.messageText,
+                username: postUserName.username,
+                time: getTime()
+            }
+            axios.put('http://localhost:3000/api/message/edit', editMessageData)
+            .then((response) => {
+                console.log(editMessageData)
+                console.log(response.data)
+                })
+                .catch((error) => {
+                    console.error(error);
+                }
+            );
+        },
         // メッセージを削除する
-         remove() {
+        remove() {
             const result = window.confirm('メッセージを削除してよろしいですか？')
             if(result){
                 this.$store.commit('delete', this.message.id)

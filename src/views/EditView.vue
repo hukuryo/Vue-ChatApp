@@ -3,6 +3,7 @@
     <h2><i class="fas fa-edit"></i>メッセージ編集</h2>
     <ChatForm v-if="messageExists" :message="setMessages"/>
     <p v-else>指定されたメッセージはありません</p>
+    
   </div>
 </template>
 
@@ -47,7 +48,7 @@ export default {
     }
   },
   methods: {
-    
+   
   }
 }
 </script>

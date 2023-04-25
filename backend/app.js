@@ -33,7 +33,7 @@ app.get('/api/message/get', (req, res) => {
     }
 })
 
-// メッセージにIDを振るために、メッセージのlengthを取得
+// メッセージにIDを振るために、メッセージのlengthを取得するメソッド
 async function getMessageArrayLength() {
     try {
       const data = await fs.promises.readFile('messages.json', 'utf8');
@@ -67,7 +67,7 @@ app.post('/api/message/post', (req, res) => {
                         console.error(err);
                         return;
                     }
-                    console.log('JSONデータを追加!');
+                    console.log('メッセージをJSONデータに追加!');
                 });
             });
         });
@@ -77,7 +77,20 @@ app.post('/api/message/post', (req, res) => {
 });
 
 // メッセージを編集
-
+app.put('/api/message/edit', (req, res) => {
+    try{
+        const id = req.body.id - 1
+        const bufferData = fs.readFileSync('messages.json')
+        //JSONのデータをJavascriptのオブジェクトに
+        let data = JSON.parse(bufferData)
+        data[id].messageText = req.body.messageText
+        const updatedJsonData = JSON.stringify(data);
+        fs.writeFileSync('messages.json', updatedJsonData)
+        console.log(req.body)
+    }catch(e){
+        console.log(e);
+    }
+});
 
 
 // 
@@ -115,7 +128,7 @@ app.post('/api/user/registration', (req, res) => {
                         console.error(err);
                         return;
                     }
-                    console.log('JSONデータを追加!');
+                    console.log('ユーザー情報をJSONデータに追加!');
                 });
             });
         });
