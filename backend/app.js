@@ -77,11 +77,7 @@ app.post('/api/message/post', (req, res) => {
 });
 
 // メッセージを編集
-// app.put('/api/message/edit', (req, res) => {
-//     const messageData = JSON.stringify(req.body.messageText, null, 2);
-//     fs.writeFileSync('messages.json', messageData)
-//     res.send('updata');
-// });
+
 
 
 // 
@@ -110,7 +106,7 @@ app.post('/api/user/registration', (req, res) => {
                 // ファイルをJSONパースして配列に変換する
                 let arr = JSON.parse(data);
                 // 新しいオブジェクトを作成して配列に追加する
-                arr.push({id: usersArrayLength + 1, usename: req.body.username, pass: req.body.pass});
+                arr.push({id: usersArrayLength + 1, username: req.body.username, pass: req.body.pass});
                 // 配列をJSON文字列に変換する
                 let newData = JSON.stringify(arr);
                 // ファイルに書き込む
