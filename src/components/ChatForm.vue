@@ -4,16 +4,13 @@
             <div class="input">
                 <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="messageText" placeholder="メッセージを入力" minlength="1"></textarea>           
             </div>
-            <button type="submit" class="btn btn-outline-success" @click="save">メッセージを送信</button>
-            <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="message.id">メッセージを削除</button>
+            <button type="submit" class="btn btn-outline-success" @click="buttonChange">メッセージを送信</button>
+            <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="this.message">メッセージを削除</button>
         </form>
-        <button @click="test">test</button>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 // 現在の時間を取得する処理
 const getTime = () => {
     let clock = new Date();  
@@ -22,6 +19,7 @@ const getTime = () => {
     return hour + ":" + min
 }
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
+
 
 export default {
     name: 'ChatForm',
@@ -41,7 +39,15 @@ export default {
         this.username = postUserName
     },
     methods: {
-        // メッセージを保存する
+        // ファイルの名前によってボタンを押したときに呼び出すメソッドを変える
+        buttonChange() {
+            if (this.$route.name === 'home') {
+                this.save()
+            } else if (this.$route.name === 'edit') {
+                this.messageEdit()
+            }
+        },
+        // メッセージを保存
         save(){
             let message = {
                 // メッセージ内容
@@ -51,20 +57,10 @@ export default {
                 // 送信時間
                 time: getTime()
             }
-            axios.post('http://localhost:3000/api/message/post', message)
-                .then((response) => {
-                    console.log(response);
-                    if(this.message.id){
-                        message.id = this.message.id
-                    }
-                    this.$store.commit('save', message)
-                })
-                .catch((error) => {
-                    console.error(error);
-            });
-            this.$router.push('/');
+            this.$emit('clicked', message);
         },
-         test(){
+        // メッセージを編集
+        messageEdit(){
             const id = parseInt(this.$route.params.id)
             let editMessageData  = {
                 id: id,
@@ -72,17 +68,9 @@ export default {
                 username: postUserName.username,
                 time: getTime()
             }
-            axios.put('http://localhost:3000/api/message/edit', editMessageData)
-            .then((response) => {
-                console.log(editMessageData)
-                console.log(response.data)
-                })
-                .catch((error) => {
-                    console.error(error);
-                }
-            );
+            this.$emit('clicked', editMessageData)
         },
-        // メッセージを削除する
+        // メッセージを削除
         remove() {
             const result = window.confirm('メッセージを削除してよろしいですか？')
             if(result){

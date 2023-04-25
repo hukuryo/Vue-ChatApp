@@ -1,9 +1,8 @@
 <template>
   <div class="edit">
     <h2><i class="fas fa-edit"></i>メッセージ編集</h2>
-    <ChatForm v-if="messageExists" :message="setMessages"/>
+    <ChatForm v-if="messageExists" :message="setMessages" @clicked="messageEdit"/>
     <p v-else>指定されたメッセージはありません</p>
-    
   </div>
 </template>
 
@@ -48,7 +47,19 @@ export default {
     }
   },
   methods: {
-   
+    messageEdit(value){
+      console.log(value.messageText)
+      axios.put('http://localhost:3000/api/message/edit', value)
+      .then((response) => {
+          console.log(value)
+          console.log(response.data)
+          })
+          .catch((error) => {
+              console.error(error);
+          }
+      );
+      this.$router.push('/')
+    },
   }
 }
 </script>

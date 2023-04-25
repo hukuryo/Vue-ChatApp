@@ -23,13 +23,15 @@
   <p v-else>メッセージはありません</p>
   <button id="page-top" href="#"><span><i class="fas fa-chevron-right"></i></span></button>
   <div class="fix">
-    <ChatForm message=""/>
+    <ChatForm message="" @clicked="playSave"/>
   </div>
 </template>
 
 <script>
 import ChatForm from '../components/ChatForm.vue'
 import axios from 'axios'
+
+
 
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
 export default {
@@ -65,6 +67,7 @@ export default {
     messages() {
       return this.$store.getters.getAll
     },
+
   },
   created(){
     this.getMessages()
@@ -78,6 +81,20 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    playSave(value){
+      axios.post('http://localhost:3000/api/message/post', value)
+          .then((response) => {
+              console.log(response);
+              if(this.message.id){
+                  value.id = this.message.id
+              }
+              this.$store.commit('save', value)
+          })
+          .catch((error) => {
+              console.error(error);
+      });
+      this.$router.push('/');
     },
   }
 }

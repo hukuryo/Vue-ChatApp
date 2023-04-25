@@ -29,7 +29,7 @@ app.get('/api/message/get', (req, res) => {
         const data = JSON.parse(dataJSON)
         res.send(data)
     }catch(e){
-        console.log("error")
+        console.log(e)
     }
 })
 
@@ -72,7 +72,7 @@ app.post('/api/message/post', (req, res) => {
             });
         });
     }catch(e){
-        console.log("error")
+        console.log(e)
     }
 });
 
@@ -96,21 +96,35 @@ app.put('/api/message/edit', (req, res) => {
 // 
 // ログイン、ユーザー登録に関するAPI
 // 
-// ユーザー登録
-async function getUserArrayLength() {
+// 初期データを書き込む関数
+async function initializeUsers(username, pass) {
     try {
-      const data = await fs.promises.readFile('users.json', 'utf8');
-      const myData = JSON.parse(data);
-      const arrayLength = myData.length;
-      return arrayLength;
+        const data = await fs.promises.writeFile('users.json', `[{"id":1,"username":"${username}","pass":"${pass}"}]`, 'utf8');
+        return data;
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
 }
+    
+// ユーザー登録
+
+    
 app.post('/api/user/registration', (req, res) => {
-    try{
-        getUserArrayLength()
-        .then((usersArrayLength) => {
+    try {
+        async function getUserArrayLength() {
+            try {
+                const data = await fs.promises.readFile('users.json', 'utf8');
+                const myData = JSON.parse(data);
+                const arrayLength = myData.length;
+                return arrayLength;
+            } catch (error) {
+                console.error(error);
+                // ファイルが存在しない場合、初期データを書き込む
+                 initializeUsers(req.body.username, req.body.pass);
+                return 1;
+            }
+        }
+        getUserArrayLength().then((usersArrayLength) => {
             fs.readFile('users.json', 'utf8', (err, data) => {
                 if (err) {
                     console.error(err);
@@ -119,7 +133,11 @@ app.post('/api/user/registration', (req, res) => {
                 // ファイルをJSONパースして配列に変換する
                 let arr = JSON.parse(data);
                 // 新しいオブジェクトを作成して配列に追加する
-                arr.push({id: usersArrayLength + 1, username: req.body.username, pass: req.body.pass});
+                arr.push({
+                    id: usersArrayLength + 1,
+                    username: req.body.username,
+                    pass: req.body.pass
+                });
                 // 配列をJSON文字列に変換する
                 let newData = JSON.stringify(arr);
                 // ファイルに書き込む
@@ -132,10 +150,10 @@ app.post('/api/user/registration', (req, res) => {
                 });
             });
         });
-    }catch(e){
-        console.log("error")
+    } catch (e) {
+        console.log(e);
     }
-})
+});
 
 // ログイン認証
 app.get('/api/user/login', (req, res) => {
@@ -149,7 +167,7 @@ app.get('/api/user/login', (req, res) => {
         const data = JSON.parse(userDataJSON)
         res.send(data)
     }catch(e){
-        console.log("error")
+        console.log(e)
     }
 })
 
