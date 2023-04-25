@@ -65,7 +65,6 @@ export default {
     messages() {
       return this.$store.getters.getAll
     },
-
   },
   created(){
     this.getMessages()

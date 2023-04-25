@@ -44,7 +44,7 @@ export default {
         save(){
             let message = {
                 // メッセージ内容
-                content: this.content,
+                messageText: this.messageText,
                 // 送信者
                 username: postUserName.username,
                 // 送信時間
@@ -61,16 +61,7 @@ export default {
                 .catch((error) => {
                     console.error(error);
             });
-            this.$router.push('/')
- 
-          
-            // if(this.message.id){
-            //     message.id = this.message.id
-            // }
-            // this.$store.commit('save', message)
-            // this.content = ""
-
-            
+            this.$router.push('/');
         },
         // メッセージを削除する
          remove() {

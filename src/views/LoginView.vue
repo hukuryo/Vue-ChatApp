@@ -10,13 +10,14 @@
         <input id="password" class="form-control" type="password" placeholder="Password" v-model="pass">
         <label for="floatingPassword">パスワード</label>
       </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login()" :disabled="!username">ログイン</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" @click="login" :disabled="!username">ログイン</button>
     </form>
     <router-link class="signin-link btn btn-success"  to="/signup">ユーザー登録</router-link>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -26,29 +27,48 @@ export default {
   },
   methods: {
     login () {
-      const data = JSON.parse(localStorage.getItem("vuex"))
-      const setName = this.username
-      const setPass = this.pass
-        try{
-          // ローカルストレージからユーザー情報を取得し、入力された情報と比較する
-          for(let i = 0; i <= data.users.length; i++){
-            const name = data.users[i].username
-            const pass = data.users[i].pass
-            if(name === setName && pass === setPass){
+      // const data = JSON.parse(localStorage.getItem("vuex"))
+      // const setName = this.username
+      // const setPass = this.pass
+      //   try{
+      //     // ローカルストレージからユーザー情報を取得し、入力された情報と比較する
+      //     for(let i = 0; i <= data.users.length; i++){
+      //       const name = data.users[i].username
+      //       const pass = data.users[i].pass
+      //       if(name === setName && pass === setPass){
+      //         this.$store.commit('setUsername', this.username)
+      //         this.$router.push('/')
+      //         break
+      //       }else{
+      //         continue
+      //       }
+      //     }
+      //   }catch(e){
+      //     window.alert("ユーザー名かパスワードが間違っています。")
+      //   }
+      //   //ログイン後に画面をリロードさせ、 Formを読み込ませる
+      //   setTimeout(function() {
+      //     location.reload();
+      //   }, 1);
+      axios.get("http://localhost:3000/api/user/login")
+        .then(response => {
+          this.userData = response.data
+          const sentUsername = this.username
+          const sentPass = this.pass
+          // console.log(this.userData.length)
+          for(let i = 0; i <= this.userData.length; i++){
+            if(this.userData[i].username === sentUsername && this.userData[i].pass === sentPass){
               this.$store.commit('setUsername', this.username)
               this.$router.push('/')
               break
-            }else{
+            } else {
               continue
             }
           }
-        }catch(e){
-          window.alert("ユーザー名かパスワードが間違っています。")
-        }
-        //ログイン後に画面をリロードさせ、 Formを読み込ませる
-        setTimeout(function() {
-          location.reload();
-        }, 1);
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

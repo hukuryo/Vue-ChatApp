@@ -45,6 +45,9 @@ export default {
       const id = parseInt(this.$route.params.id)
       return this.$store.getters.getMessageById(id)
     }
+  },
+  methods: {
+    
   }
 }
 </script>

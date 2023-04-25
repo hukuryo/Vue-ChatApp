@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     data () {
       return {
@@ -28,15 +29,30 @@
     },
     methods: {
       save(){
-        let user = {
-            username: this.username,
-            pass: this.pass
-        }
-        this.$store.commit('userSave', user)
-        this.username = ""
-        this.pass = ""
-        this.$router.push({path: '/login'})
-        window.alert('ユーザー登録が完了しました。')
+        // let user = {
+        //     username: this.username,
+        //     pass: this.pass
+        // }
+        // this.$store.commit('userSave', user)
+        // this.username = ""
+        // this.pass = ""
+        // this.$router.push({path: '/login'})
+        // window.alert('ユーザー登録が完了しました。')
+        let userContent = {
+                // メッセージ内容
+                username: this.username,
+                // 送信者
+                pass: this.pass,
+                // 送信時間
+            }
+            axios.post('http://localhost:3000/api/user/registration', userContent)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+            });
+            this.$router.push('/login');
       }
     }
   }
