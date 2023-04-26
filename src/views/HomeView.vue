@@ -4,9 +4,8 @@
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
     <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
-          <i class="fas fa-user"></i>
-          <strong class="me-auto">{{ item.username }}</strong>
-          <small id="setTime" class="text-muted"> <i class="far fa-clock" style="margin-right: 2px;"></i>{{ item.time }}</small>
+         
+          <strong class="me-auto"><i class="far fa-clock"></i>{{ item.time }} <i class="fas fa-user"></i>{{ item.username }}</strong>
         </div>
         <div class="toast-body" >
           {{ item.messageText }}
@@ -162,7 +161,7 @@ export default {
     margin-right: 10px;
   }
   .fa-user{
-    padding-right: 10px;
+    padding: 0 5px 0 10px;
   }
   .fa-list-ul{
     padding-right: 5px;
