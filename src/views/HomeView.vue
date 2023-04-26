@@ -75,7 +75,6 @@ export default {
     getMessages() {  
       axios.get("http://localhost:3000/api/message/get")
         .then(response => {
-          console.log(response.data.length)
           if(response.data.length === 0){
             this.errorMessage = "メッセージはありません。"
           }

@@ -2,7 +2,7 @@
     <div class="center">
         <form>
             <div class="input">
-                <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="messageText" placeholder="メッセージを入力" minlength="1"></textarea>           
+                <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="messageText" placeholder="メッセージを入力" min="1"></textarea>           
             </div>
             <button type="submit" class="btn btn-outline-success" @click="buttonChange">メッセージを送信</button>
             <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="this.message">メッセージを削除</button>
@@ -58,7 +58,11 @@ export default {
                 // 送信時間
                 time: getTime()
             }
-            this.$emit('clicked', message);
+            if(message.messageText === ""){
+                window.alert('メッセージを入力してください')
+            }else{
+                this.$emit('clicked', message);
+            }
         },
         // メッセージを編集
         messageEdit(){
