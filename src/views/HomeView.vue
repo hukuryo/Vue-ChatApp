@@ -22,7 +22,7 @@
   <p>{{ this.errorMessage }}</p>
   <button id="page-top" href="#"><span><i class="fas fa-chevron-right"></i></span></button>
   <div class="fix">
-    <ChatForm message="" @clicked="playSave"/>
+    <ChatForm message="" @clicked="playSave" :propMessage="propMessage"/>
   </div>
 </template>
 
@@ -39,7 +39,8 @@ export default {
     return{
       data: {},
       username: postUserName.username,
-      errorMessage: ""
+      errorMessage: "",
+      propMessage: "送信"
     } 
   },
   components: {

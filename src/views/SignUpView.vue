@@ -36,12 +36,20 @@ import axios from 'axios'
             pass: this.pass,
             // 送信時間
         }
+        if(userContent.username === ""){
+          window.alert('ユーザー名が入力されていません')
+          return
+        }
+        if(userContent.pass === ""){
+          window.alert('パスワードが入力されていません')
+          return
+        }
         axios.post('http://localhost:3000/api/user/registration', userContent)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.error(error);
+          .then((response) => {
+              console.log(response);
+          })
+          .catch((error) => {
+              console.error(error);
         });
         window.alert('ユーザー登録が完了しました。')
         this.$router.push('/login');

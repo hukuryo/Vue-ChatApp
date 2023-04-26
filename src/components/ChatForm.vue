@@ -4,7 +4,7 @@
             <div class="input">
                 <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="messageText" placeholder="メッセージを入力" min="1"></textarea>           
             </div>
-            <button type="submit" class="btn btn-outline-success" @click="buttonChange">メッセージを送信</button>
+            <button type="submit" class="btn btn-outline-success" @click="buttonChange">メッセージを{{ propMessage }}</button>
             <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="this.message">メッセージを削除</button>
         </form>
     </div>
@@ -26,7 +26,8 @@ export default {
     name: 'ChatForm',
     // 一覧画面からメッセージ内容を取得
     props: [
-        'message'
+        'message',
+        'propMessage'
     ],
     // メッセージ内容、ユーザー名、送信時間をセット
     data() {
@@ -73,7 +74,11 @@ export default {
                 username: postUserName.username,
                 time: getTime()
             }
-            this.$emit('clicked', editMessageData)
+            if(editMessageData.messageText === ""){
+                window.alert('メッセージを入力してください')
+            }else{
+               this.$emit('clicked', editMessageData);
+            }
         },
         // メッセージを削除
         remove() {
