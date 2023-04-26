@@ -9,7 +9,7 @@ app.use(express.json());
 
 // CORSでhttp://localhost:8080からのリクエストを許可
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: ['http://localhost:8080', 'https://vue-chat-app-zm49-cijw0zjp5-hukuryo.vercel.app'],
   credentials: true
 }));
 
