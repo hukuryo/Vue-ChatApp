@@ -33,7 +33,6 @@ export default {
             this.userData = response.data
             const sentUsername = this.username
             const sentPass = this.pass
-            // console.log(this.userData.length)
             for(let i = 0; i <= this.userData.length; i++){
               if(this.userData[i].username === sentUsername && this.userData[i].pass === sentPass){
                 this.$store.commit('setUsername', this.username)

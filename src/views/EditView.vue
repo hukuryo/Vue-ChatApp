@@ -48,14 +48,12 @@ export default {
   },
   methods: {
     messageEdit(value){
-      console.log(value.messageText)
       axios.put('http://localhost:3000/api/message/edit', value)
       .then((response) => {
-          console.log(value)
-          console.log(response.data)
+            console.log(response.data)
           })
           .catch((error) => {
-              console.error(error);
+            console.error(error);
           }
       );
       this.$router.push('/')

@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 // 現在の時間を取得する処理
 const getTime = () => {
     let clock = new Date();  
@@ -19,7 +21,6 @@ const getTime = () => {
     return hour + ":" + min
 }
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
-
 
 export default {
     name: 'ChatForm',
@@ -74,6 +75,14 @@ export default {
         remove() {
             const result = window.confirm('メッセージを削除してよろしいですか？')
             if(result){
+                const id = parseInt(this.$route.params.id)
+                axios.delete("http://localhost:3000/api/message/delete", id)
+                .then(response => {
+                    this.data = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
                 this.$store.commit('delete', this.message.id)
                 this.$router.push('/')
             }else{

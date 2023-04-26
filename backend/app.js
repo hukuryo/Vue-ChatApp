@@ -13,7 +13,6 @@ app.use(cors({
   credentials: true
 }));
 
-
 //
 // メッセージに関するAPI
 //  
@@ -29,7 +28,7 @@ app.get('/api/message/get', (req, res) => {
         const data = JSON.parse(dataJSON)
         res.send(data)
     }catch(e){
-        console.log(e)
+        fs.writeFileSync('messages.json', JSON.stringify([]));
     }
 })
 
@@ -92,6 +91,14 @@ app.put('/api/message/edit', (req, res) => {
     }
 });
 
+// メッセージ削除
+app.delete('/api/message/delete', (req, res) => {
+    const messageData = fs.readFileSync('messages.json')
+    const messages = JSON.parse(messageData)
+    const deleteIndex = messages.findIndex(message => message.id === req.body.id)
+    messages.splice(deleteIndex, 1)
+    fs.writeFileSync('messages.json', JSON.stringify(messages));
+})
 
 // 
 // ログイン、ユーザー登録に関するAPI

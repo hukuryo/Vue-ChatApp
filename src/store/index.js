@@ -5,7 +5,7 @@ import { VuexPersistence } from 'vuex-persist'
 const vuexPersist = new VuexPersistence({
   storage: localStorage
 })
-// import axios from 'axios'
+
 export default createStore({
   state: {
     messageCount: 0,

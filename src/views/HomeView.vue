@@ -1,6 +1,6 @@
 <template>
   <p class="loginName"><strong>{{ this.username }}</strong>でログイン中</p>
-  <div class="index" role="alert" aria-live="assertive" aria-atomic="true" v-if="HasMessages">
+  <div class="index" role="alert" aria-live="assertive" aria-atomic="true">
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
     <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
@@ -19,8 +19,7 @@
         </div>
     </div>
   </div>
-  
-  <p v-else>メッセージはありません</p>
+  <p>{{ this.errorMessage }}</p>
   <button id="page-top" href="#"><span><i class="fas fa-chevron-right"></i></span></button>
   <div class="fix">
     <ChatForm message="" @clicked="playSave"/>
@@ -31,16 +30,16 @@
 import ChatForm from '../components/ChatForm.vue'
 import axios from 'axios'
 
-
-
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
+
 export default {
   name: 'HomeView',
   // ユーザーデータを格納する変数を準備
   data(){
     return{
       data: {},
-      username: postUserName.username
+      username: postUserName.username,
+      errorMessage: ""
     } 
   },
   components: {
@@ -76,6 +75,10 @@ export default {
     getMessages() {  
       axios.get("http://localhost:3000/api/message/get")
         .then(response => {
+          console.log(response.data.length)
+          if(response.data.length === 0){
+            this.errorMessage = "メッセージはありません。"
+          }
           this.data = response.data
         })
         .catch(error => {
@@ -95,6 +98,9 @@ export default {
               console.error(error);
       });
       this.$router.push('/');
+      setTimeout(function() {
+          location.reload();
+      }, 1);
     },
   }
 }
@@ -118,7 +124,6 @@ export default {
     margin: 0;
     padding: 0;
   }
-
   li{
     list-style: none;
     border-bottom: 1px solid#ccc;
