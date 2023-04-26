@@ -13,7 +13,6 @@ app.use(cors());
 // メッセージの取得
 app.get('/api/message/get', (req, res) => {
     try{
-        const fs = require('fs')
         //データを取りだす
         const bufferData = fs.readFileSync('messages.json')
         // データを文字列に変換
@@ -53,7 +52,7 @@ app.post('/api/message/post', (req, res) => {
                 // 新しいオブジェクトを作成して配列に追加する
                 arr.push({id: messagesArrayLength + 1, messageText: req.body.messageText, username: req.body.username, time: req.body.time });
                 // 配列をJSON文字列に変換する
-                let newData = JSON.stringify(arr);
+                let newData = JSON.stringify(arr, null, '\t');
                 // ファイルに書き込む
                 fs.writeFile('messages.json', newData, 'utf8', (err) => {
                     if (err) {
@@ -105,7 +104,7 @@ async function initializeUsers(username, pass) {
         console.error(error);
     }
 }
-    
+
 // ユーザー登録
 app.post('/api/user/registration', (req, res) => {
     try {
@@ -137,7 +136,7 @@ app.post('/api/user/registration', (req, res) => {
                     pass: req.body.pass
                 });
                 // 配列をJSON文字列に変換する
-                let newData = JSON.stringify(arr);
+                let newData = JSON.stringify(arr, null, '\t');
                 // ファイルに書き込む
                 fs.writeFile('users.json', newData, 'utf8', (err) => {
                     if (err) {

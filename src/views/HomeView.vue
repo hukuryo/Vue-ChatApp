@@ -67,7 +67,6 @@ export default {
   },
   created(){
     this.getMessages()
-    // this.playReload()
   },
   methods: {
     // メッセージ一覧を取得する
