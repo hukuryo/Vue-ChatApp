@@ -44,7 +44,7 @@ export default {
             }
           })
       }catch(e){
-         window.alert('ユーザー名かパスワードが違います。')
+        console.log(e)
       }
       setTimeout(function() {
           location.reload();
