@@ -66,10 +66,10 @@ export default {
     messages() {
       return this.$store.getters.getAll
     },
-
   },
   created(){
     this.getMessages()
+    // this.playReload()
   },
   methods: {
     getMessages() {  
@@ -102,6 +102,17 @@ export default {
           location.reload();
       }, 1);
     },
+    playReload(){
+      let number = 0;
+      if(number === 0){
+        setTimeout(function() {
+          location.reload();
+        }, 1);
+        number++
+      }else{
+        return
+      }
+    }
   }
 }
 

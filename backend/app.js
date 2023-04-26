@@ -103,7 +103,7 @@ app.delete('/api/message/delete', (req, res) => {
 // 
 // ログイン、ユーザー登録に関するAPI
 // 
-// 初期データを書き込む関数
+// ユーザーが誰も登録されていない場合に、初期データを書き込む関数
 async function initializeUsers(username, pass) {
     try {
         const data = await fs.promises.writeFile('users.json', `[{"id":1,"username":"${username}","pass":"${pass}"}]`, 'utf8');
@@ -114,8 +114,6 @@ async function initializeUsers(username, pass) {
 }
     
 // ユーザー登録
-
-    
 app.post('/api/user/registration', (req, res) => {
     try {
         async function getUserArrayLength() {
