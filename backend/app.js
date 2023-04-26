@@ -3,12 +3,8 @@ const cors = require('cors');
 const app = express();
 const fs = require('fs');
 const { default: axios } = require('axios');
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-// CORSでAPIへのリクエストを許可
 app.use(cors());
 
 //
@@ -73,7 +69,7 @@ app.post('/api/message/post', (req, res) => {
     }
 });
 
-// メッセージを編集
+// メッセージ編集
 app.put('/api/message/edit', (req, res) => {
     try{
         const id = req.body.id - 1
@@ -173,8 +169,7 @@ app.get('/api/user/login', (req, res) => {
     }
 })
 
-
 // 3000番ポートで実行
 app.listen(3000, () => 
-    console.log('Server running on port 3000')
+    console.log('3000番ポートで実行')
 );

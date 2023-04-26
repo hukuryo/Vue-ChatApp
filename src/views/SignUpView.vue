@@ -28,13 +28,11 @@ import axios from 'axios'
       }
     },
     methods: {
+      // ユーザー情報を保存する処理
       save(){
         let userContent = {
-            // メッセージ内容
             username: this.username,
-            // 送信者
-            pass: this.pass,
-            // 送信時間
+            pass: this.pass,            
         }
         if(userContent.username === ""){
           window.alert('ユーザー名が入力されていません')

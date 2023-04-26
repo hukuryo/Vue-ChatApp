@@ -26,6 +26,7 @@ export default {
     }
   },
   methods: {
+    // ログインする処理
     login () {
       try{
         axios.get("http://localhost:3000/api/user/login")

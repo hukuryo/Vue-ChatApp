@@ -2,7 +2,7 @@
     <div class="center">
         <form>
             <div class="input">
-                <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="messageText" placeholder="メッセージを入力" min="1"></textarea>           
+                <textarea class="form-control" aria-label="With textarea"  name="messageText" v-model="messageText" placeholder="メッセージを入力"></textarea>           
             </div>
             <button type="submit" class="btn btn-outline-success" @click="buttonChange">メッセージを{{ propMessage }}</button>
             <button type="button" class="btn btn-outline-danger" @click.prevent="submitForm" @click="remove" v-if="this.message">メッセージを削除</button>

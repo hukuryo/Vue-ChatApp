@@ -4,8 +4,7 @@
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
     <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
-         
-          <strong class="me-auto"><i class="far fa-clock"></i>{{ item.time }} <i class="fas fa-user"></i>{{ item.username }}</strong>
+          <strong class="me-auto"><i class="far fa-clock"></i>{{ item.time }}<i class="fas fa-user"></i>{{ item.username }}</strong>
         </div>
         <div class="toast-body" >
           {{ item.messageText }}
@@ -33,7 +32,6 @@ const postUserName = JSON.parse(localStorage.getItem("vuex"))
 
 export default {
   name: 'HomeView',
-  // ユーザーデータを格納する変数を準備
   data(){
     return{
       data: {},
@@ -72,6 +70,7 @@ export default {
     // this.playReload()
   },
   methods: {
+    // メッセージ一覧を取得する
     getMessages() {  
       axios.get("http://localhost:3000/api/message/get")
         .then(response => {
@@ -84,6 +83,7 @@ export default {
           console.log(error)
         })
     },
+    // メッセージを送信する
     playSave(value){
       axios.post('http://localhost:3000/api/message/post', value)
           .then((response) => {
@@ -114,8 +114,6 @@ export default {
     }
   }
 }
-
-
 </script>
 
 <style scoped>
