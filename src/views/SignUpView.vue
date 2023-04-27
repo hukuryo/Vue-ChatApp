@@ -1,47 +1,28 @@
 <template>
   <div class="login-form text-center form-signin" >
-    <form>
-        <h1 class="h3 mb-3 fw-normal"><i class="fas fa-user-plus" style="margin-right: 3px;"></i>ユーザー登録</h1>
-        <div class="form-floating">
-            <input id="name" class="form-control" type="text" v-model="username">
-            <label for="floatingInput">ユーザー名</label>
-        </div>
-        <div class="form-floating">
-            <input id="password" class="form-control" type="password" placeholder="Password" v-model="pass">
-            <label for="floatingPassword">パスワード</label>
-        </div>
-        <div class="checkbox mb-3">
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" @click="save()">ユーザー登録</button>
-    </form>
+    <h1 class="h3 mb-3 fw-normal"><i class="fas fa-user-plus" style="margin-right: 3px;"></i>ユーザー登録</h1>
+    <AuthenticationForm  @clicked="signup" :buttonText="buttonText"/>
     <router-link class="signin-link btn btn-success"  to="/login">ログイン</router-link>
   </div>
 </template>
 
 <script>
+import AuthenticationForm from '../components/AuthenticationForm.vue'
 import axios from 'axios'
   export default {
     data () {
       return {
         username: '',
-        pass: ''
+        pass: '',
+        buttonText: 'ユーザー登録'
       }
+    },
+    components: {
+      AuthenticationForm
     },
     methods: {
       // ユーザー情報を保存する処理
-      save(){
-        let userContent = {
-            username: this.username,
-            pass: this.pass,            
-        }
-        if(userContent.username === ""){
-          window.alert('ユーザー名が入力されていません')
-          return
-        }
-        if(userContent.pass === ""){
-          window.alert('パスワードが入力されていません')
-          return
-        }
+      signup(userContent){
         axios.post('http://localhost:3000/api/user/registration', userContent)
           .then((response) => {
               console.log(response);

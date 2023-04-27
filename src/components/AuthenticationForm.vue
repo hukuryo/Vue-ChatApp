@@ -1,0 +1,60 @@
+<template>
+    <form>
+        <div class="form-floating">
+            <input id="name" class="form-control" type="text" v-model="username">
+            <label for="floatingInput">ユーザー名</label>
+        </div>
+        <div class="form-floating">
+            <input id="password" class="form-control" type="password" placeholder="Password" v-model="pass">
+            <label for="floatingPassword">パスワード</label>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" @click="actionChangeButton">{{ buttonText }}</button>
+    </form>
+</template>
+<script>
+export default {
+    name: 'AuthenticationForm',
+    data () {
+        return {
+        username: '',
+        pass: '',
+        }
+    },
+    props: [
+        'buttonText'
+    ],
+    methods: {
+        actionChangeButton() {
+            if (this.$route.name === 'login') {
+                this.login()
+            } else if (this.$route.name === 'signup') {
+                this.registration()
+            }
+        },
+        login(){
+             let userContent = {
+                username: this.username,
+                pass: this.pass,            
+            }
+            this.$emit('clicked', userContent)
+        },
+        registration(){
+            let userContent = {
+                username: this.username,
+                pass: this.pass,            
+            }
+            if(userContent.username === ""){
+                window.alert('ユーザー名が入力されていません')
+                return
+            }
+            if(userContent.pass === ""){
+                window.alert('パスワードが入力されていません')
+                return
+            }
+            this.$emit('clicked', userContent)
+        }
+    },
+}
+</script>

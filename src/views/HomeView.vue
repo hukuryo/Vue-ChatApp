@@ -100,17 +100,6 @@ export default {
           location.reload();
       }, 1);
     },
-    playReload(){
-      let number = 0;
-      if(number === 0){
-        setTimeout(function() {
-          location.reload();
-        }, 1);
-        number++
-      }else{
-        return
-      }
-    }
   }
 }
 </script>

@@ -14,12 +14,12 @@ app.use(cors());
 app.get('/api/message/get', (req, res) => {
     try{
         //データを取りだす
-        const bufferData = fs.readFileSync('messages.json')
+        const bufferData = fs.readFileSync('messages.json');
         // データを文字列に変換
-        const dataJSON = bufferData.toString()
+        const dataJSON = bufferData.toString();
         //JSONのデータをJavascriptのオブジェクトに
-        const data = JSON.parse(dataJSON)
-        res.send(data)
+        const data = JSON.parse(dataJSON);
+        res.send(data);
     }catch(e){
         fs.writeFileSync('messages.json', JSON.stringify([]));
     }
@@ -71,13 +71,13 @@ app.post('/api/message/post', (req, res) => {
 // メッセージ編集
 app.put('/api/message/edit', (req, res) => {
     try{
-        const id = req.body.id - 1
-        const bufferData = fs.readFileSync('messages.json')
+        const id = req.body.id - 1;
+        const bufferData = fs.readFileSync('messages.json');
         //JSONのデータをJavascriptのオブジェクトに
-        let data = JSON.parse(bufferData)
-        data[id].messageText = req.body.messageText
+        let data = JSON.parse(bufferData);
+        data[id].messageText = req.body.messageText;
         const updatedJsonData = JSON.stringify(data);
-        fs.writeFileSync('messages.json', updatedJsonData)
+        fs.writeFileSync('messages.json', updatedJsonData);
     }catch(e){
         console.log(e);
     }
@@ -85,10 +85,10 @@ app.put('/api/message/edit', (req, res) => {
 
 // メッセージ削除
 app.delete('/api/message/delete', (req, res) => {
-    const messageData = fs.readFileSync('messages.json')
-    const messages = JSON.parse(messageData)
-    const deleteIndex = messages.findIndex(message => message.id === req.body.id)
-    messages.splice(deleteIndex, 1)
+    const messageData = fs.readFileSync('messages.json');
+    const messages = JSON.parse(messageData);
+    const deleteIndex = messages.findIndex(message => message.id === req.body.id);
+    messages.splice(deleteIndex, 1);
     fs.writeFileSync('messages.json', JSON.stringify(messages));
 })
 
@@ -157,14 +157,14 @@ app.get('/api/user/login', (req, res) => {
     try{
         const fs = require('fs')
         //データを取りだす
-        const userData = fs.readFileSync('users.json')
+        const userData = fs.readFileSync('users.json');
         // データを文字列に変換
-        const userDataJSON = userData.toString()
+        const userDataJSON = userData.toString();
         //JSONのデータをJavascriptのオブジェクトに
-        const data = JSON.parse(userDataJSON)
-        res.send(data)
+        const data = JSON.parse(userDataJSON);
+        res.send(data);
     }catch(e){
-        console.log(e)
+        console.log(e);
     }
 })
 

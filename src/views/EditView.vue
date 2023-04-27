@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import ChatForm from '../components/ChatForm.vue'
-import axios from 'axios'
+import ChatForm from '../components/ChatForm.vue';
+import axios from 'axios';
 
 export default {
   name: 'EditView',
@@ -20,44 +20,44 @@ export default {
       messageExists: false,
       setMessages: [],
       propMessage: "編集"
-    }
+    };
   },
   async created() {
     // URLからIDを受け取る
-    const id = parseInt(this.$route.params.id)
+    const id = parseInt(this.$route.params.id);
     try {
       // APIからメッセージ一覧を取得
-      const response = await axios.get("http://localhost:3000/api/message/get")
+      const response = await axios.get("http://localhost:3000/api/message/get");
       // メッセージ一覧からIDと一致するメッセージがあるか確認
-      this.messageExists = response.data.some(message => message.id === id)
+      this.messageExists = response.data.some(message => message.id === id);
       for(let i=0; i <= response.data.length; i++){
         if(id === response.data[i].id){
-          this.setMessages = response.data[i].messageText
-          break
+          this.setMessages = response.data[i].messageText;
+          break;
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
   computed: {
     message() {
       // URLからIDを受け取る
-      const id = parseInt(this.$route.params.id)
-      return this.$store.getters.getMessageById(id)
+      const id = parseInt(this.$route.params.id);
+      return this.$store.getters.getMessageById(id);
     }
   },
   methods: {
     messageEdit(value){
       axios.put('http://localhost:3000/api/message/edit', value)
       .then((response) => {
-            console.log(response.data)
+            console.log(response.data);
           })
           .catch((error) => {
             console.error(error);
           }
       );
-      this.$router.push('/')
+      this.$router.push('/');
     },
   }
 }
