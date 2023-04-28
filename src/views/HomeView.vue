@@ -5,6 +5,7 @@
     <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
           <strong class="me-auto"><i class="far fa-clock"></i>{{ item.time }}<i class="fas fa-user"></i>{{ item.username }}</strong>
+          <small>{{ item.day }}</small>
         </div>
         <div class="toast-body" >
           {{ item.messageText }}
@@ -101,14 +102,14 @@ export default {
       }, 1);
     },
   },
-  watch: {
-  '$store.state.loggedIn'(newValue) {
-    if (newValue) {
-      location.reload()
-    }
-  }
-},
 }
+const getDay = () => {
+    let clock = new Date();  
+    let month = clock.getMonth()
+    let day = clock.getDate()
+    console.log( month + 1 + "/" + day)
+}
+getDay()
 </script>
 
 <style scoped>

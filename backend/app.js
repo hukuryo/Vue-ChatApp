@@ -54,7 +54,8 @@ app.post('/api/message/post', (req, res) => {
                     id: messagesArrayLength + 1,
                     messageText: req.body.messageText,
                     username: req.body.username,
-                    time: req.body.time 
+                    time: req.body.time,
+                    day: req.body.day
                 });
                 // 配列をJSON文字列に変換する
                 let newData = JSON.stringify(arr, null, '\t');
@@ -64,7 +65,6 @@ app.post('/api/message/post', (req, res) => {
                         console.error(err);
                         return;
                     }
-                    console.log('メッセージをJSONデータに追加!');
                 });
             });
         });
@@ -148,7 +148,6 @@ app.post('/api/user/registration', (req, res) => {
                         console.error(err);
                         return;
                     }
-                    console.log('ユーザー情報をJSONデータに追加!');
                 });
             });
         });

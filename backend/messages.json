@@ -1,1 +1,16 @@
-[{"id":1,"messageText":"test","username":"fuku","time":"16:40"},{"id":2,"messageText":"sample","username":"fuku","time":"11:43"},{"id":3,"messageText":"test2","username":"fuku","time":"11:44"},{"id":4,"messageText":"ddd","username":"shima","time":"16:19"}]
+[
+	{
+		"id": 1,
+		"messageText": "test",
+		"username": "fuku",
+		"time": "14:9",
+		"day": "4/28"
+	},
+	{
+		"id": 2,
+		"messageText": "sample",
+		"username": "shima",
+		"time": "14:9",
+		"day": "4/28"
+	}
+]

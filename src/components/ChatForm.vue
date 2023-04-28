@@ -20,6 +20,12 @@ const getTime = () => {
     let min = clock.getMinutes();
     return hour + ":" + min
 }
+const getDay = () => {
+    let clock = new Date();  
+    let month = clock.getMonth()
+    let day = clock.getDate()
+    return month + 1 + "/" + day
+}
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
 
 export default {
@@ -34,7 +40,8 @@ export default {
         return {
             messageText: this.message,
             username: postUserName.username,
-            time: getTime()
+            time: getTime(),
+            day: getDay()
         }
     },
     mounted(){
@@ -57,7 +64,9 @@ export default {
                 // 送信者
                 username: postUserName.username,
                 // 送信時間
-                time: getTime()
+                time: getTime(),
+                // 送信日
+                day: getDay()
             }
             if(message.messageText === ""){
                 window.alert('メッセージを入力してください')
