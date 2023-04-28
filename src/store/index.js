@@ -17,6 +17,9 @@ export default createStore({
     getCount: (state) => {
       return state.messages.length
     },
+    getUsername: (state) => {
+      return state.users
+    },
     getAll: (state) => {
       return state.messages
     },
@@ -26,6 +29,9 @@ export default createStore({
     loggedIn: (state) => {
       return Boolean(state.username)
     },
+    // loggedIn: (state) => {
+    //   return Boolean(state.username)
+    // },
   },
   mutations: {
     // Vuex-persistを使えるようにするための記述

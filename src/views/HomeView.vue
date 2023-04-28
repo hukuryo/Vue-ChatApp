@@ -100,7 +100,14 @@ export default {
           location.reload();
       }, 1);
     },
+  },
+  watch: {
+  '$store.state.loggedIn'(newValue) {
+    if (newValue) {
+      location.reload()
+    }
   }
+},
 }
 </script>
 

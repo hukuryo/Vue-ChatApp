@@ -27,7 +27,6 @@ export default {
       try{
         axios.post("http://localhost:3000/api/user/login", userContent)
           .then(response => {
-            console.log(response)
             if(response.status === 200){
               this.$store.commit('setUsername', userContent.username);
               this.$router.push('/');

@@ -18,7 +18,8 @@
       logout () {
         const confirm = window.confirm("ログアウトしてもよろしいですか？")
         if(confirm){
-          this.$store.commit('setUsername', '')
+          this.$store.commit('setUsername', null)
+          location.reload()
           if (this.$route.meta.requiresAuth) {
             this.$router.push({
               path: '/login',
