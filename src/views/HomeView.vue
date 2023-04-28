@@ -2,6 +2,7 @@
   <p class="loginName"><strong>{{ this.username }}</strong>でログイン中</p>
   <div class="index" role="alert" aria-live="assertive" aria-atomic="true">
     <h2> <i class="fas fa-list-ul"></i>メッセージ一覧</h2>
+    <!-- メッセージの一覧を表示 -->
     <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
           <strong class="me-auto"><i class="far fa-clock"></i>{{ item.time }}<i class="fas fa-user"></i>{{ item.username }}</strong>
@@ -18,6 +19,7 @@
         </div>
     </div>
   </div>
+  <!-- メッセージがない場合のみ表示する -->
   <p>{{ this.errorMessage }}</p>
   <button id="page-top" href="#"><span><i class="fas fa-chevron-right"></i></span></button>
   <div class="fix">
@@ -28,7 +30,7 @@
 <script>
 import ChatForm from '../components/ChatForm.vue'
 import axios from 'axios'
-
+// ローカルストレージからユーザー情報を取得
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
 
 export default {
@@ -74,6 +76,7 @@ export default {
     getMessages() {  
       axios.get("http://localhost:3000/api/message/get")
         .then(response => {
+          // メッセージが一件もない場合に以下のメッセージを表示する。
           if(response.data.length === 0){
             this.errorMessage = "メッセージはありません。"
           }
@@ -84,6 +87,7 @@ export default {
         })
     },
     // メッセージを送信する
+    // Valueはコンポーネント化したChatForm.vueから$emitで入力された内容を取得している
     playSave(value){
       axios.post('http://localhost:3000/api/message/post', value)
           .then((response) => {
@@ -97,19 +101,9 @@ export default {
               console.error(error);
       });
       this.$router.push('/');
-      setTimeout(function() {
-          location.reload();
-      }, 1);
     },
   },
 }
-const getDay = () => {
-    let clock = new Date();  
-    let month = clock.getMonth()
-    let day = clock.getDate()
-    console.log( month + 1 + "/" + day)
-}
-getDay()
 </script>
 
 <style scoped>

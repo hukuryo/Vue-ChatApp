@@ -48,6 +48,7 @@ export default {
     }
   },
   methods: {
+    // Valueはコンポーネント化したChatForm.vueから$emitで入力された内容を取得している
     messageEdit(value){
       axios.put('http://localhost:3000/api/message/edit', value)
       .then((response) => {

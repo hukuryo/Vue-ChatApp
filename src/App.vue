@@ -15,10 +15,12 @@
 <script>
   export default {
     methods: {
+      // ログアウトする処理
       logout () {
         const confirm = window.confirm("ログアウトしてもよろしいですか？")
         if(confirm){
           this.$store.commit('setUsername', null)
+          // ログアウト時に画面のキャッシュを消すため、リロードする。
           location.reload()
           if (this.$route.meta.requiresAuth) {
             this.$router.push({

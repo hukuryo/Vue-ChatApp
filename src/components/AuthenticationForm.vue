@@ -27,6 +27,7 @@ export default {
         'buttonText'
     ],
     methods: {
+        // ページ名に応じて、動かすメソッドを変える
         actionChangeButton() {
             if (this.$route.name === 'login') {
                 this.login()
@@ -34,13 +35,16 @@ export default {
                 this.registration()
             }
         },
+        // ログインするためのメソッド
         login(){
             let userContent = {
                 username: this.username,
                 pass: this.pass,            
             }
+            // 入力された内容をLoginView.vueファイルのメソッドに渡す。
             this.$emit('clicked', userContent)
         },
+        // ユーザー登録をするメソッド
         registration(){
             let userContent = {
                 username: this.username,
@@ -54,6 +58,7 @@ export default {
                 window.alert('パスワードが入力されていません')
                 return
             }
+            // 入力された内容をSignUpView.vueファイルのメソッドに渡す。
             this.$emit('clicked', userContent)
         },
         validateInput() {

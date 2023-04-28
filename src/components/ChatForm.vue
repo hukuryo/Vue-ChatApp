@@ -20,12 +20,14 @@ const getTime = () => {
     let min = clock.getMinutes();
     return hour + ":" + min
 }
+// 日付を取得する
 const getDay = () => {
     let clock = new Date();  
     let month = clock.getMonth()
     let day = clock.getDate()
     return month + 1 + "/" + day
 }
+// ローカルストレージからログインしているユーザーの情報を取得
 const postUserName = JSON.parse(localStorage.getItem("vuex"))
 
 export default {
@@ -93,6 +95,7 @@ export default {
         remove() {
             const result = window.confirm('メッセージを削除してよろしいですか？')
             if(result){
+                // URLのパスからIDを取得
                 const id = parseInt(this.$route.params.id)
                 axios.delete("http://localhost:3000/api/message/delete", id)
                 .then(response => {

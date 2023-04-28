@@ -13,7 +13,7 @@ app.use(cors());
 // メッセージの取得
 app.get('/api/message/get', (req, res) => {
     try{
-        //データを取りだす
+        //message.jsonファイルからメッセージを取りだす
         const bufferData = fs.readFileSync('messages.json');
         // データを文字列に変換
         const dataJSON = bufferData.toString();
@@ -42,6 +42,7 @@ app.post('/api/message/post', (req, res) => {
     try{
         getMessageArrayLength()
         .then((messagesArrayLength) => {
+            // 入力された内容を取得して、message.jsonの配列にプッシュする
             fs.readFile('messages.json', 'utf8', (err, data) => {
                 if (err) {
                     console.error(err);
@@ -78,7 +79,6 @@ app.put('/api/message/edit', (req, res) => {
     try{
         const id = req.body.id - 1;
         const bufferData = fs.readFileSync('messages.json');
-        //JSONのデータをJavascriptのオブジェクトに
         let data = JSON.parse(bufferData);
         data[id].messageText = req.body.messageText;
         const updatedJsonData = JSON.stringify(data);
@@ -121,7 +121,7 @@ app.post('/api/user/registration', (req, res) => {
                 return arrayLength;
             } catch (error) {
                 console.error(error);
-                // ファイルが存在しない場合、初期データを書き込む
+                // ファイルが存在しない場合、配列を作成して、入力された内容を保存する。
                  initializeUsers(req.body.username, req.body.pass);
                 return 1;
             }
@@ -163,11 +163,14 @@ app.post('/api/user/login', (req, res) => {
       const userDataJSON = userData.toString();
       const getData = req.body;
       const data = JSON.parse(userDataJSON);
+      //ユーザーを一人ずつ取り出して、入力された内容と比較する。   
       for (let i = 0; i < data.length; i++) {
         if (data[i].username === getData.username && data[i].pass === getData.pass) {
+        // フロント側に成功メッセージを送る
           return res.status(200).send('Success');
         }
       }
+    //入力された内容と一致するユーザーがいなければ、失敗メッセージを返す。   
       res.status(401).send('Authentication failed');
     } catch (e) {
       console.log(e);

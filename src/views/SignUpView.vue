@@ -23,7 +23,9 @@ export default {
   },
   methods: {
     // ユーザー情報を保存する処理
+    // 引数のuserContentはAuthenticationFormファイルから$emitで入力された内容が渡されている。
     signup(userContent){
+      // axiosを使ってNode.jsにAPIリクエストを送る
       axios.post('http://localhost:3000/api/user/registration', userContent)
         .then((response) => {
           console.log(response);

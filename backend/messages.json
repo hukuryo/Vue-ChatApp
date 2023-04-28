@@ -2,15 +2,8 @@
 	{
 		"id": 1,
 		"messageText": "test",
-		"username": "fuku",
-		"time": "14:9",
-		"day": "4/28"
-	},
-	{
-		"id": 2,
-		"messageText": "sample",
 		"username": "shima",
-		"time": "14:9",
+		"time": "15:45",
 		"day": "4/28"
 	}
 ]
