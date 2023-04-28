@@ -9,6 +9,7 @@
 <script>
 import AuthenticationForm from '../components/AuthenticationForm.vue'
 import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -18,36 +19,27 @@ export default {
     }
   },
   components: {
-      AuthenticationForm
-  },
-  created(){
-    console.log(this.$route.name)
+    AuthenticationForm
   },
   methods: {
     // ログインする処理
     login (userContent) {
       try{
-        axios.get("http://localhost:3000/api/user/login")
+        axios.post("http://localhost:3000/api/user/login", userContent)
           .then(response => {
-            this.userData = response.data;
-            const sentUsername = userContent.username;
-            const sentPass = userContent.pass;
-            for(let i = 0; i <= this.userData.length; i++){
-              if(this.userData[i].username === sentUsername && this.userData[i].pass === sentPass){
-                this.$store.commit('setUsername', userContent.username);
-                this.$router.push('/');
-                break
-              } else {
-                continue
-              }
+            console.log(response)
+            if(response.status === 200){
+              this.$store.commit('setUsername', userContent.username);
+              this.$router.push('/');
             }
           })
+          .catch((error) => {
+            window.alert('ユーザー名かパスワードが違います。')
+            console.log(error)
+          })
       }catch(e){
-        console.log("e")
+        console.log(e)
       }
-      setTimeout(function() {
-          location.reload();
-      }, 1);
     }
   }
 }

@@ -50,7 +50,12 @@ app.post('/api/message/post', (req, res) => {
                 // ファイルをJSONパースして配列に変換する
                 let arr = JSON.parse(data);
                 // 新しいオブジェクトを作成して配列に追加する
-                arr.push({id: messagesArrayLength + 1, messageText: req.body.messageText, username: req.body.username, time: req.body.time });
+                arr.push({
+                    id: messagesArrayLength + 1,
+                    messageText: req.body.messageText,
+                    username: req.body.username,
+                    time: req.body.time 
+                });
                 // 配列をJSON文字列に変換する
                 let newData = JSON.stringify(arr, null, '\t');
                 // ファイルに書き込む
@@ -153,20 +158,23 @@ app.post('/api/user/registration', (req, res) => {
 });
 
 // ログイン認証
-app.get('/api/user/login', (req, res) => {
-    try{
-        const fs = require('fs')
-        //データを取りだす
-        const userData = fs.readFileSync('users.json');
-        // データを文字列に変換
-        const userDataJSON = userData.toString();
-        //JSONのデータをJavascriptのオブジェクトに
-        const data = JSON.parse(userDataJSON);
-        res.send(data);
-    }catch(e){
-        console.log(e);
+app.post('/api/user/login', (req, res) => {
+    try {
+      const userData = fs.readFileSync('users.json');
+      const userDataJSON = userData.toString();
+      const getData = req.body;
+      const data = JSON.parse(userDataJSON);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].username === getData.username && data[i].pass === getData.pass) {
+          return res.status(200).send('Success');
+        }
+      }
+      res.status(401).send('Authentication failed');
+    } catch (e) {
+      console.log(e);
+      res.status(500).send('Internal server error');
     }
-})
+  });
 
 // 3000番ポートで実行
 app.listen(3000, () => 

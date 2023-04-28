@@ -1,7 +1,8 @@
 <template>
     <form>
+        <p>半角英数字のみで入力してください</p>
         <div class="form-floating">
-            <input id="name" class="form-control" type="text" v-model="username">
+            <input id="name" class="form-control" type="text" v-model="username"  @input="validateInput">
             <label for="floatingInput">ユーザー名</label>
         </div>
         <div class="form-floating">
@@ -18,8 +19,8 @@ export default {
     name: 'AuthenticationForm',
     data () {
         return {
-        username: '',
-        pass: '',
+            username: '',
+            pass: '',
         }
     },
     props: [
@@ -34,7 +35,7 @@ export default {
             }
         },
         login(){
-             let userContent = {
+            let userContent = {
                 username: this.username,
                 pass: this.pass,            
             }
@@ -54,6 +55,9 @@ export default {
                 return
             }
             this.$emit('clicked', userContent)
+        },
+        validateInput() {
+            this.username = this.username.replace(/[^a-zA-Z0-9]/g, '');
         }
     },
 }
