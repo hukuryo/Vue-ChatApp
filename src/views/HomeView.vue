@@ -5,7 +5,7 @@
     <!-- メッセージの一覧を表示 -->
     <div class="message-item" v-for="item in data" :key="item.id">
         <div class="toast-header">
-          <strong class="me-auto"><i class="far fa-clock"></i>{{ item.time }}<i class="fas fa-user"></i>{{ item.username }}</strong>
+          <strong class="me-auto"><i class="far fa-clock" style="margin-right: 5px;"></i>{{ item.time }}<i class="fas fa-user"></i>{{ item.username }}</strong>
           <small>{{ item.day }}</small>
         </div>
         <div class="toast-body" >

@@ -5,8 +5,7 @@
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item"><router-link class="btn btn-primary" aria-current="page" v-if="$store.getters.loggedIn" to="/"><i class="fas fa-home"></i>トップページ</router-link></li>
-        <li class="nav-item"><button class="btn btn-danger" @click="logout()" v-if="$store.getters.loggedIn" style="margin: 0 20px;"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>ログアウト</button>
-        </li>
+        <li class="nav-item"><button class="btn btn-danger" @click="logout()" v-if="$store.getters.loggedIn" style="margin: 0 20px;"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>ログアウト</button></li>
       </ul>
     </header>
   <router-view/>

@@ -18,7 +18,8 @@ const getTime = () => {
     let clock = new Date();  
     let hour = clock.getHours();
     let min = clock.getMinutes();
-    return hour + ":" + min
+    const formattedMinutes = (min < 10 ? '0' : '') + min;
+    return hour + ":" + formattedMinutes
 }
 // 日付を取得する
 const getDay = () => {

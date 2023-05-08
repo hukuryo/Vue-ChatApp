@@ -23,5 +23,10 @@
 		"id": 5,
 		"username": "kame",
 		"pass": "buta"
+	},
+	{
+		"id": 6,
+		"username": "huku",
+		"pass": "pass"
 	}
 ]

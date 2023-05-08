@@ -1,9 +1,16 @@
 [
 	{
 		"id": 1,
-		"messageText": "test",
+		"messageText": "今日は何日ですか？",
+		"username": "huku",
+		"time": "9:47",
+		"day": "5/8"
+	},
+	{
+		"id": 2,
+		"messageText": "8日です。",
 		"username": "shima",
-		"time": "15:45",
-		"day": "4/28"
+		"time": "9:48",
+		"day": "5/8"
 	}
 ]
