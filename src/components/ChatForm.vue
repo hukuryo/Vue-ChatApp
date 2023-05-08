@@ -124,7 +124,7 @@ export default {
     }
     textarea {
         width: 60%;
-    height: 41px;
+        height: 41px;
     }
     .btn-outline-danger{
         margin-left: 10px;
