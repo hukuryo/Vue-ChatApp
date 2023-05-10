@@ -72,7 +72,6 @@ export default {
     this.getMessages()
   },
   methods: {
-    // メッセージ一覧を取得する
     getMessages() {  
       axios.get("http://localhost:3000/api/message/get")
         .then(response => {

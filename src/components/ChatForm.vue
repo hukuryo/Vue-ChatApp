@@ -32,12 +32,10 @@ const postUserName = JSON.parse(localStorage.getItem("vuex"))
 
 export default {
     name: 'ChatForm',
-    // 一覧画面からメッセージ内容を取得
     props: [
         'message',
         'propMessage'
     ],
-    // メッセージ内容、ユーザー名、送信時間をセット
     data() {
         return {
             messageText: this.message,
@@ -58,16 +56,11 @@ export default {
                 this.messageEdit()
             }
         },
-        // メッセージを保存
         save(){
             let message = {
-                // メッセージ内容
                 messageText: this.messageText,
-                // 送信者
                 username: postUserName.username,
-                // 送信時間
                 time: getTime(),
-                // 送信日
                 day: getDay()
             }
             if(message.messageText === ""){
@@ -76,7 +69,6 @@ export default {
                 this.$emit('clicked', message);
             }
         },
-        // メッセージを編集
         messageEdit(){
             const id = parseInt(this.$route.params.id)
             let editMessageData  = {
@@ -91,7 +83,6 @@ export default {
                this.$emit('clicked', editMessageData);
             }
         },
-        // メッセージを削除
         remove() {
             const result = window.confirm('メッセージを削除してよろしいですか？')
             if(result){

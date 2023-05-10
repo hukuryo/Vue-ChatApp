@@ -43,7 +43,6 @@ export default {
             // 入力された内容をLoginView.vueファイルのメソッドに渡す。
             this.$emit('clicked', userContent)
         },
-        // ユーザー登録をするメソッド
         registration(){
             let userContent = {
                 username: this.username,

@@ -43,7 +43,6 @@ export default createStore({
         state.messages.unshift(newMessage)
       }
     },
-    // ユーザー情報を保存する
     userSave(state, newUser){
       if(newUser.id){
         let x = state.users.find(users => users.id === newUser.id)
@@ -53,7 +52,6 @@ export default createStore({
         state.users.unshift(newUser)
       }
     },
-    // メッセージを削除する
     delete(state, id){
       state.messages = state.messages.filter(message => message.id !== id)
     },

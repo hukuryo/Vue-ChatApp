@@ -22,10 +22,8 @@ export default {
     AuthenticationForm
   },
   methods: {
-    // ログインする処理
     login (userContent) {
       try{
-        // Node.jsで認証を行うために、APIリクエストと一緒に、入力された内容をNode.jsに投げる
         axios.post("http://localhost:3000/api/user/login", userContent)
           .then(response => {
             if(response.status === 200){

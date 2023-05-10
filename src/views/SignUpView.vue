@@ -22,7 +22,6 @@ export default {
     AuthenticationForm
   },
   methods: {
-    // ユーザー情報を保存する処理
     // 引数のuserContentはAuthenticationFormファイルから$emitで入力された内容が渡されている。
     signup(userContent){
       // axiosを使ってNode.jsにAPIリクエストを送る
