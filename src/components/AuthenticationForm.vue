@@ -35,7 +35,6 @@ export default {
                 this.registration()
             }
         },
-        // ログインするためのメソッド
         login(){
             let userContent = {
                 username: this.username,
