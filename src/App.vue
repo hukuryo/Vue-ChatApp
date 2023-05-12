@@ -21,7 +21,7 @@
         if(confirm){
           this.$store.commit('setUsername', null)
           // ログアウト時に画面のキャッシュを消すため、リロードする。
-          location.reload()
+          localStorage.setItem('loggedIn', false);
           if (this.$route.meta.requiresAuth) {
             this.$router.push({
               path: '/login',

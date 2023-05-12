@@ -89,17 +89,16 @@ export default {
     // Valueはコンポーネント化したChatForm.vueから$emitで入力された内容を取得している
     playSave(value){
       axios.post('http://localhost:3000/api/message/post', value)
-          .then((response) => {
-              console.log(response);
-              if(this.message.id){
-                  value.id = this.message.id
-              }
-              this.$store.commit('save', value)
-          })
-          .catch((error) => {
-              console.error(error);
+        .then((response) => {
+            console.log(response);
+            if(this.message.id){
+              value.id = this.message.id
+            }
+            this.$store.commit('save', value)
+        })
+        .catch((error) => {
+          console.error(error);
       });
-      this.$router.push('/');
     },
   },
 }

@@ -88,13 +88,13 @@ export default {
             if(result){
                 // URLのパスからIDを取得
                 const id = parseInt(this.$route.params.id)
-                axios.delete("http://localhost:3000/api/message/delete", id)
-                .then(response => {
-                    this.data = response.data
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                axios.delete(`http://localhost:3000/api/message/delete/${id}`)
+                    .then(response => {
+                        this.data = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
                 this.$store.commit('delete', this.message.id)
                 this.$router.push('/')
             }else{

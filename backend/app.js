@@ -43,30 +43,57 @@ app.post('/api/message/post', (req, res) => {
         getMessageArrayLength()
         .then((messagesArrayLength) => {
             // 入力された内容を取得して、message.jsonの配列にプッシュする
-            fs.readFile('messages.json', 'utf8', (err, data) => {
+            fs.readFile('messages.json', 'utf8', (err, resData) => {
                 if (err) {
                     console.error(err);
                     return;
                 }
-                // ファイルをJSONパースして配列に変換する
-                let arr = JSON.parse(data);
-                // 新しいオブジェクトを作成して配列に追加する
-                arr.push({
-                    id: messagesArrayLength + 1,
-                    messageText: req.body.messageText,
-                    username: req.body.username,
-                    time: req.body.time,
-                    day: req.body.day
-                });
-                // 配列をJSON文字列に変換する
-                let newData = JSON.stringify(arr, null, '\t');
-                // ファイルに書き込む
-                fs.writeFile('messages.json', newData, 'utf8', (err) => {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-                });
+                try{
+                    const bufferData = fs.readFileSync('messages.json');
+                    const dataJSON = bufferData.toString();
+                    //JSONのデータをJavascriptのオブジェクトに
+                    const data = JSON.parse(dataJSON);
+                    const lastObj = data[data.length].id + 1;
+                    console.log(lastObj)
+                    // ファイルをJSONパースして配列に変換する
+                    let arr = JSON.parse(resData);
+                    // 新しいオブジェクトを作成して配列に追加する
+                    arr.push({
+                        id: lastObj ,
+                        messageText: req.body.messageText,
+                        username: req.body.username,
+                        time: req.body.time,
+                        day: req.body.day
+                    });
+                    // 配列をJSON文字列に変換する
+                    let newData = JSON.stringify(arr, null, '\t');
+                    // ファイルに書き込む
+                    fs.writeFile('messages.json', newData, 'utf8', (err) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+                    });
+                }catch(e){
+                    let arr = JSON.parse(resData);
+                    // 新しいオブジェクトを作成して配列に追加する
+                    arr.push({
+                        id: messagesArrayLength + 1,
+                        messageText: req.body.messageText,
+                        username: req.body.username,
+                        time: req.body.time,
+                        day: req.body.day
+                    });
+                    // 配列をJSON文字列に変換する
+                    let newData = JSON.stringify(arr, null, '\t');
+                    // ファイルに書き込む
+                    fs.writeFile('messages.json', newData, 'utf8', (err) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+                    });
+                }
             });
         });
     }catch(e){
@@ -81,7 +108,7 @@ app.put('/api/message/edit', (req, res) => {
         const bufferData = fs.readFileSync('messages.json');
         let data = JSON.parse(bufferData);
         data[id].messageText = req.body.messageText;
-        const updatedJsonData = JSON.stringify(data);
+        const updatedJsonData = JSON.stringify(data, null, '\t');
         fs.writeFileSync('messages.json', updatedJsonData);
     }catch(e){
         console.log(e);
@@ -89,13 +116,18 @@ app.put('/api/message/edit', (req, res) => {
 });
 
 // メッセージ削除
-app.delete('/api/message/delete', (req, res) => {
-    const messageData = fs.readFileSync('messages.json');
-    const messages = JSON.parse(messageData);
-    const deleteIndex = messages.findIndex(message => message.id === req.body.id);
-    messages.splice(deleteIndex, 1);
-    fs.writeFileSync('messages.json', JSON.stringify(messages));
-})
+app.delete('/api/message/delete/:id', (req, res) => {
+    try {
+        const id = req.params.id;
+        const messageData = fs.readFileSync('messages.json');
+        let messages = JSON.parse(messageData);
+        messages = messages.filter(message => message.id !== parseInt(id));
+        fs.writeFileSync('messages.json', JSON.stringify(messages, null, '\t'));
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 
 // 
 // ログイン、ユーザー登録に関するAPI
@@ -122,7 +154,7 @@ app.post('/api/user/registration', (req, res) => {
             } catch (error) {
                 console.error(error);
                 // ファイルが存在しない場合、配列を作成して、入力された内容を保存する。
-                 initializeUsers(req.body.username, req.body.pass);
+                initializeUsers(req.body.username, req.body.pass);
                 return 1;
             }
         }

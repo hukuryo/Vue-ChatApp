@@ -28,12 +28,13 @@ export default {
           .then(response => {
             if(response.status === 200){
               this.$store.commit('setUsername', userContent.username);
+              localStorage.setItem('loggedIn', true);
               this.$router.push('/');
             }
           })
           .catch((error) => {
-            window.alert('ユーザー名かパスワードが違います。')
-            console.log(error)
+            window.alert('ユーザー名かパスワードが違います。');
+            console.log(error);
           })
       }catch(e){
         console.log(e)

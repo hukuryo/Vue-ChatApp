@@ -42,16 +42,18 @@ router.beforeEach((to, from, next) => {
     if (!store.getters.loggedIn) {
       next({
         path: '/login',
-        query: {
-          redirect: to.fullPath,
-          message: true
-        }
       })
     } else {
       next()
     }
   } else {
-    next()
+    if (store.getters.loggedIn && to.path === '/login') {
+      next({
+        path: '/',
+      })
+    } else {
+      next()
+    }
   }
 })
 
